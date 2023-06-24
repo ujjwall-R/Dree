@@ -11,7 +11,7 @@ To run the Directory Tree Visualizer project, follow these steps:
 
 ```shell
 cd Dree
-./main.hs
+./main.sh
 ```
 
 ## Contributing
