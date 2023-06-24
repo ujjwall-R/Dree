@@ -16,7 +16,7 @@ void DirectoryGraph::TraverseDirectories(const string &directoryName, int depth,
 
     DirectoryNode node(directoryName, directoryName);
     graph.push_back(node);
-
+    // There cant be any directory cycle
     for (const auto &entry : filesystem::directory_iterator(directoryName))
     {
         if (entry.is_directory())
@@ -24,5 +24,6 @@ void DirectoryGraph::TraverseDirectories(const string &directoryName, int depth,
             string childDirectory = entry.path().string();
             TraverseDirectories(childDirectory, depth, graph, currentDepth + 1);
         }
+        // else a file, i.e, leaf node
     }
 }
