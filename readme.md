@@ -13,8 +13,8 @@ To run the Directory Tree Visualizer project, follow these steps:
 
 ```shell
 cd Dree
-chmod +x main.sh
-./main.sh
+make clean
+make run
 ```
 
 ## Contributing
