@@ -11,10 +11,12 @@ using namespace std;
 class DirectoryGraph
 {
 public:
-    vector<DirectoryNode> BuildGraph(const string &directoryName, int depth);
+    vector<vector<DirectoryNode>> BuildGraph(const string &directoryName, int depth);
 
 private:
-    void TraverseDirectories(const string &directoryName, int depth, vector<DirectoryNode> &graph, int currentDepth = 0);
+    void TraverseDirectoriesDFS(const string &directoryName, int depth, vector<vector<DirectoryNode>> &graph, int currentDepth = 0);
+
+    void PrintDirectoriesDFS(int depth, int currentDepth = 0);
 };
 
 #endif
