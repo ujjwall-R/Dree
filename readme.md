@@ -1,6 +1,6 @@
-# Dree
+# Dree [Under Development]
 
-Coming soon...
+One single package for visualization, debugging, and exploration of folder hierarchies.
 
 ## How to Run [Development]
 
