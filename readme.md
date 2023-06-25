@@ -2,6 +2,8 @@
 
 One single package for visualization, debugging, and exploration of folder hierarchies.
 
+Say no to bulky file managers with Dree.
+
 ## How to Run [Development]
 
 To run the Directory Tree Visualizer project, follow these steps:
