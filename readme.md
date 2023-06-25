@@ -8,7 +8,7 @@ Say no to bulky file managers with Dree.
 
 To run the Directory Tree Visualizer project, follow these steps:
 
-1. Ensure you have C++ compiler and development environment set up on your linux system
+1. Ensure you have C++17 compiler and development environment set up on your linux or mac system
 2. Clone the project repository to your local machine.
 
 ```shell
