@@ -13,8 +13,19 @@ To run the Directory Tree Visualizer project, follow these steps:
 
 ```shell
 cd Dree
+```
+
+### Build and run
+
+```shell
 make clean
 make run
+```
+
+### How to compile the changes?
+
+```shell
+make all
 ```
 
 ## Contributing

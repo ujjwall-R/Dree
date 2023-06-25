@@ -3,12 +3,19 @@ CC := g++
 # Compiler flags
 CFLAGS := -std=c++17
 
-# Source files
-SOURCES := src/main.cpp src/model/DirectoryNode.cpp src/controller/DirectoryGraph.cpp
-# Object files
-OBJECTS := $(SOURCES:.cpp=.o)
+# Source directory
+SRCDIR := src
+# Object directory
+OBJDIR := obj
 # Executable name
-EXECUTABLE := ./main
+EXECUTABLE := compile/main
+
+# Find all source files recursively
+SOURCES := $(shell find $(SRCDIR) -name "*.cpp")
+# Object files derived from source files
+OBJECTS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+# Directories to create object files in
+DIRECTORIES := $(sort $(dir $(OBJECTS)))
 
 # Default target
 all: $(EXECUTABLE)
@@ -18,8 +25,15 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $@
 
 # Rule to build object files
-%.o: %.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(DIRECTORIES)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Create the directories for object files
+$(DIRECTORIES):
+	mkdir -p $@
+
+# Include the dependency files
+-include $(OBJECTS:.o=.d)
 
 # Target to run the program
 run: $(EXECUTABLE)
@@ -27,4 +41,4 @@ run: $(EXECUTABLE)
 
 # Clean target
 clean:
-	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -rf $(OBJDIR) $(EXECUTABLE)
