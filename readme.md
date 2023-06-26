@@ -23,8 +23,7 @@ cd Dree
 ### Build
 
 ```shell
-if [ ! -d "compile" ]; then mkdir compile; fi
-make clean
+if [ ! -d "compile" ]; then mkdir compile; fi && make clean
 ```
 
 ### Run
