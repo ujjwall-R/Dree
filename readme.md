@@ -20,14 +20,20 @@ To run the Directory Tree Visualizer project, follow these steps:
 cd Dree
 ```
 
-### Build and run
+### Build
 
 ```shell
+if [ ! -d "compile" ]; then mkdir compile; fi
 make clean
+```
+
+### Run
+
+```shell
 make run
 ```
 
-### How to compile the changes?
+### Compile the changes
 
 ```shell
 make all
