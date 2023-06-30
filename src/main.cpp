@@ -8,8 +8,8 @@ using namespace std;
 int main()
 {
     DirectoryGraph builder;
-    builder.BuildGraph("/home/ujjwal/Desktop/crawlir", 4);
-    // dree.PrintGraph();
+    auto root = builder.BuildGraph("/home/ujjwal/Desktop/crawlir", 4);
+    builder.PrintGraph(root, 4);
 
     return 0;
 }
