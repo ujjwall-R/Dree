@@ -4,14 +4,16 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class DirectoryNode
 {
 public:
-    std::string name;
-    std::string path;
-    std::vector<DirectoryNode> children;
+    string name;
+    string path;
+    vector<DirectoryNode *> children;
 
-    DirectoryNode(const std::string &name, const std::string &path);
+    DirectoryNode(const string &name, const string &path);
 };
 
 #endif
