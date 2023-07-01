@@ -37,7 +37,7 @@ $(DIRECTORIES):
 
 # Target to run the program
 run: $(EXECUTABLE)
-	$(EXECUTABLE) $(DIRECTORY) $(ARGS)
+	$(EXECUTABLE) $(ARGS)
 
 # Clean target
 clean:

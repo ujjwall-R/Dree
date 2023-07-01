@@ -8,6 +8,31 @@ Say no to bulky file managers with Dree.
 
 **Important:** This project is a work in progress and is not intended for production use at this time. It is undergoing active development, and changes, improvements, and bug fixes are being made frequently.
 
+# Installation[Linux]
+
+To run the Directory Tree Visualizer project, follow these steps:
+
+1. Ensure you have C++17 compiler and development environment set up on your linux or mac system
+2. Clone the project repository to your local machine.
+
+```shell
+git clone https://github.com/ujjwall-R/Dree
+cd Dree
+```
+
+Add path to `dree.sh` in `~/.bashrc` as:
+
+```
+alias dree='path/to/project/dree.sh'
+```
+
+## Run [example]
+
+```
+dree 3
+```
+
+# Development
 
 ## How to Run [Development]
 
