@@ -37,8 +37,9 @@ $(DIRECTORIES):
 
 # Target to run the program
 run: $(EXECUTABLE)
-	$(EXECUTABLE)
+	$(EXECUTABLE) $(ARGS)
 
 # Clean target
 clean:
 	rm -rf $(OBJDIR) $(EXECUTABLE)
+

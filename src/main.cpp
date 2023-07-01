@@ -6,12 +6,26 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-    long long depth = 3; // should not be more than 60
-    auto currentPath = filesystem::current_path();
+    if (argc != 3)
+    {
+        cout << "Missing args" << std::endl;
+        return 1;
+    }
+    string currentPath = argv[1];
+    filesystem::path directoryPath(currentPath);
+    int depth = stoi(argv[2]);
+
+    // TODO:add check to prevent overflow
+    if (depth >= 60)
+    {
+        cout << "mask overflow!!\n";
+        return 1;
+    }
+
     DirectoryGraph builder;
     auto root = builder.BuildGraph(currentPath, depth);
-    builder.PrintGraph(root, depth);
+    builder.PrintGraphDFS(root, depth);
     return 0;
 }

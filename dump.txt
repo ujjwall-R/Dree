@@ -1,0 +1,3 @@
+# #!/bin/bash
+# make run -C /home/ujjwal/Desktop/crawlir ARGS="$(pwd) $1"
+
