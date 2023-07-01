@@ -13,7 +13,9 @@ public:
     string path;
     vector<DirectoryNode *> children;
 
-    DirectoryNode(const string &name, const string &path);
+    string getFileName(string path);
+
+    DirectoryNode(const string &path);
 };
 
 #endif

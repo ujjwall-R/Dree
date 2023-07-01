@@ -3,9 +3,15 @@
 
 using namespace std;
 
+bool DirectoryGraph::isDirectory(const string &pathStr)
+{
+    filesystem::path path(pathStr);
+    return filesystem::is_directory(path);
+}
+
 DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, int depth)
 {
-    DirectoryNode *graph = new DirectoryNode(directoryName, directoryName);
+    DirectoryNode *graph = new DirectoryNode(directoryName);
     TraverseDirectoriesDFS(graph, depth, 0);
     return graph;
 }
@@ -15,20 +21,22 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, int depth, int 
     if (currentDepth > depth)
         return;
 
-    // populate Children
     for (const auto &entry : filesystem::directory_iterator(node->path))
     {
-        if (entry.is_directory())
+        // if (entry.is_directory())
+        if (true)
         {
             string childDirectory = entry.path().string();
-            DirectoryNode *child = new DirectoryNode(childDirectory, childDirectory);
+            DirectoryNode *child = new DirectoryNode(childDirectory);
             node->children.push_back(child);
         }
     }
-    // Traverse and recursively go into children
     for (auto ch : node->children)
     {
-        TraverseDirectoriesDFS(ch, depth, currentDepth + 1);
+        if (isDirectory(ch->path))
+        {
+            TraverseDirectoriesDFS(ch, depth, currentDepth + 1);
+        }
     }
 }
 
