@@ -29,6 +29,8 @@ alias dree='path/to/project/dree.sh'
 
 ## Run [example]
 
+Run `dree` followed by number of nested levels you want to visualise:
+
 ```
 dree 3
 ```
