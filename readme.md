@@ -26,6 +26,10 @@ Add path to `dree.sh` in `~/.bashrc` as:
 ```
 alias dree='path/to/project/dree.sh'
 ```
+Restart terminal or run:
+```shell
+source ~/.bashrc
+```
 
 ## Run [example]
 
