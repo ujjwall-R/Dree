@@ -40,19 +40,26 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, int depth, int 
     }
 }
 
-void DirectoryGraph::PrintGraph(DirectoryNode *node, int depth, int currentDepth)
+void DirectoryGraph::PrintGraph(DirectoryNode *node, int depth, int currentDepth, bool isLastChild)
 {
     if (currentDepth == depth)
         return;
 
     for (int i = 0; i < currentDepth * depth; ++i)
+    {
         cout << " ";
-    cout << "└── ";
+    }
+    isLastChild ? cout << "└── " : cout << "├──";
 
     cout << node->name << "\n";
     for (size_t i = 0; i < node->children.size(); ++i)
     {
         DirectoryNode *child = node->children[i];
-        PrintGraph(child, depth, currentDepth + 1);
+        PrintGraph(child, depth, currentDepth + 1, i == node->children.size() - 1);
     }
+}
+
+void DirectoryGraph::PrintGraph(DirectoryNode *node, int depth)
+{
+    this->PrintGraph(node, depth, 0, true);
 }

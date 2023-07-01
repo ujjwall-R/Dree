@@ -12,8 +12,8 @@ class DirectoryGraph
 {
 public:
     DirectoryNode *BuildGraph(const string &directoryName, int depth);
-
-    void PrintGraph(DirectoryNode *node, int depth, int currentDepth = 0);
+    void PrintGraph(DirectoryNode *node, int depth, int currentDepth, bool isLastChild);
+    void PrintGraph(DirectoryNode *node, int depth);
 
 private:
     bool isDirectory(const std::string &pathStr);
