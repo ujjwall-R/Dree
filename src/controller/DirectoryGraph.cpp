@@ -9,14 +9,14 @@ bool DirectoryGraph::isDirectory(const string &pathStr)
     return filesystem::is_directory(path);
 }
 
-DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, int depth)
+DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, long long depth)
 {
     DirectoryNode *graph = new DirectoryNode(directoryName);
     TraverseDirectoriesDFS(graph, depth, 0);
     return graph;
 }
 
-void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, int depth, int currentDepth)
+void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth, long long currentDepth)
 {
     if (currentDepth > depth)
         return;
@@ -40,19 +40,33 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, int depth, int 
     }
 }
 
-void DirectoryGraph::PrintGraph(DirectoryNode *node, int depth, int currentDepth)
+void DirectoryGraph::PrintGraph(DirectoryNode *node, long long depth, long long currentDepth, bool isLastChild, long long mask)
 {
     if (currentDepth == depth)
         return;
 
-    for (int i = 0; i < currentDepth * depth; ++i)
-        cout << " ";
-    cout << "└── ";
+    for (long long i = 0; i < currentDepth; i++)
+    {
+        if (((mask >> i) & 1ll) == 0ll)
+            cout << "│    ";
+        else
+            cout << "     ";
+    }
+    isLastChild ? cout << "└── " : cout << "├── ";
 
     cout << node->name << "\n";
-    for (size_t i = 0; i < node->children.size(); ++i)
+    for (size_t i = 0; i < node->children.size(); i++)
     {
         DirectoryNode *child = node->children[i];
-        PrintGraph(child, depth, currentDepth + 1);
+        if (i == node->children.size() - 1)
+        {
+            mask = mask | (1ll << (currentDepth + 1));
+        }
+        PrintGraph(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
+}
+
+void DirectoryGraph::PrintGraph(DirectoryNode *node, long long depth)
+{
+    this->PrintGraph(node, depth, 0, true, 1);
 }
