@@ -18,6 +18,7 @@ To run the Directory Tree Visualizer project, follow these steps:
 ```shell
 git clone https://github.com/ujjwall-R/Dree
 cd Dree
+if [ ! -d "compile" ]; then mkdir compile; fi && make clean
 ```
 
 Add path to `dree.sh` in `~/.bashrc` as:
