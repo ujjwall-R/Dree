@@ -40,7 +40,7 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     }
 }
 
-void DirectoryGraph::PrintGraph(DirectoryNode *node, long long depth, long long currentDepth, bool isLastChild, long long mask)
+void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth, long long currentDepth, bool isLastChild, long long mask)
 {
     if (currentDepth == depth)
         return;
@@ -62,11 +62,11 @@ void DirectoryGraph::PrintGraph(DirectoryNode *node, long long depth, long long 
         {
             mask = mask | (1ll << (currentDepth + 1));
         }
-        PrintGraph(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
+        PrintGraphDFS(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
 }
 
-void DirectoryGraph::PrintGraph(DirectoryNode *node, long long depth)
+void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth)
 {
-    this->PrintGraph(node, depth, 0, true, 1);
+    this->PrintGraphDFS(node, depth, 0ll, true, 1ll);
 }
