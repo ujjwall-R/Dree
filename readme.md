@@ -21,7 +21,7 @@ cd Dree
 if [ ! -d "compile" ]; then mkdir compile; fi && make clean
 ```
 
-Add path to `dree.sh` in `~/.bashrc` as:
+Add path to `dree.sh` in `~/.bashrc`. If you use zsh add the path in `~/.zshrc`.
 
 ```
 alias dree='path/to/project/dree.sh'
@@ -30,6 +30,7 @@ alias dree='path/to/project/dree.sh'
 ## Run [example]
 
 Run `dree` followed by number of nested levels you want to visualise:
+
 ```
 dree 3
 ```
