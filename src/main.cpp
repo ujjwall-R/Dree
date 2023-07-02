@@ -27,5 +27,8 @@ int main(int argc, char *argv[])
     DirectoryGraph builder;
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
+
+    if (!builder.allFilesPermited)
+        cout << builder.permissionErrorString << "\n";
     return 0;
 }

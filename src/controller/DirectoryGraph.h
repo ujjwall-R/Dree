@@ -11,8 +11,11 @@ using namespace std;
 class DirectoryGraph
 {
 public:
+    DirectoryGraph();
     DirectoryNode *BuildGraph(const string &directoryName, long long depth);
     void PrintGraphDFS(DirectoryNode *node, long long depth);
+    bool allFilesPermited;
+    string permissionErrorString;
 
 private:
     bool isDirectory(const std::string &pathStr);
