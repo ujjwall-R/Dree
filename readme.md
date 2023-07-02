@@ -8,7 +8,7 @@ Say no to bulky file managers with Dree.
 
 **Important:** This project is a work in progress and is not intended for production use at this time. It is undergoing active development, and changes, improvements, and bug fixes are being made frequently.
 
-# Installation[Linux]
+# Installation
 
 To run the Directory Tree Visualizer project, follow these steps:
 
