@@ -3,6 +3,12 @@
 
 using namespace std;
 
+DirectoryGraph::DirectoryGraph()
+{
+    this->allFilesPermited = true;
+    this->permissionErrorString = "Note:- Somefiles were omited due to default permission errors!!";
+}
+
 bool DirectoryGraph::isDirectory(const string &pathStr)
 {
     filesystem::path path(pathStr);
@@ -21,16 +27,23 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     if (currentDepth > depth)
         return;
 
-    for (const auto &entry : filesystem::directory_iterator(node->path))
+    try
     {
-        // if (entry.is_directory())
-        if (true)
+        for (const auto &entry : filesystem::directory_iterator(node->path))
         {
-            string childDirectory = entry.path().string();
-            DirectoryNode *child = new DirectoryNode(childDirectory);
-            node->children.push_back(child);
+            if (true)
+            {
+                string childDirectory = entry.path().string();
+                DirectoryNode *child = new DirectoryNode(childDirectory);
+                node->children.push_back(child);
+            }
         }
     }
+    catch (const std::exception &e)
+    {
+        this->allFilesPermited = false;
+    }
+
     for (auto ch : node->children)
     {
         if (isDirectory(ch->path))
