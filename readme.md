@@ -1,4 +1,4 @@
-# Dree [V0.0]
+# Dree
 
 One single package for visualization, debugging, and exploration of folder hierarchies.
 
