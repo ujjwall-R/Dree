@@ -11,27 +11,26 @@ void search(int argc, char *argv[])
 {
     if (argc != 5)
     {
-        cout << "Missing args" << std::endl;
+        cout << "Missing args"
+             << "\n";
         return;
     }
     string flag = argv[3];
     if (flag != "-f")
     {
-        cout << "Unknown args: " << argv[3] << "\n"
-             << std::endl;
+        cout << "Unknown args: " << argv[3] << "\n";
         return;
     }
     string query = argv[4];
     int depth = stoi(argv[2]);
     if (depth >= 60)
     {
-        cout << "mask overflow!!\n";
+        cout << "mask overflow!!";
         return;
     }
     DirectoryGraph builder;
     string currentPath = argv[1];
     filesystem::path directoryPath(currentPath);
-    // cout << "here: " << currentPath << " " << depth << " " << query << "\n";
     builder.SearchDirectory(currentPath, depth, query);
 }
 
@@ -49,7 +48,7 @@ void dree(int argc, char *argv[])
     // TODO:add check to prevent overflow
     if (depth >= 60)
     {
-        cout << "mask overflow!!\n";
+        cout << "mask overflow!!";
         return;
     }
 
@@ -58,14 +57,11 @@ void dree(int argc, char *argv[])
     builder.PrintGraphDFS(root, depth);
 
     if (!builder.allFilesPermited)
-        cout << builder.permissionErrorString << "\n";
+        cout << builder.permissionErrorString;
 }
 
 int main(int argc, char *argv[])
 {
-
-    // cout << DirectorySearch::LevenshteinDistance("hello1123", "hello") << " : sim\n";
-
     if (argc == 3)
         dree(argc, argv);
     else if (argc == 5)

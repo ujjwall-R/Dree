@@ -131,7 +131,7 @@ void DirectoryGraph::SearchDirectory(const string &directoryName, int searchDept
     {
         if (searchObject->results[0].first == 0)
         {
-            cout << "\nSearch Results:\n";
+            cout << "Search Results:\n";
             int cnt = 0;
             for (auto res : searchObject->results)
             {
@@ -147,7 +147,7 @@ void DirectoryGraph::SearchDirectory(const string &directoryName, int searchDept
         }
         else
         {
-            cout << "\nCouldn't find results. Did you mean?:\n";
+            cout << "Couldn't find results. Did you mean?:\n";
             int cnt = 0;
             for (auto res : searchObject->results)
             {
@@ -159,5 +159,4 @@ void DirectoryGraph::SearchDirectory(const string &directoryName, int searchDept
             }
         }
     }
-    cout << "\n";
 }
