@@ -27,16 +27,30 @@ Add path to `dree.sh` in `~/.bashrc`. If you use zsh add the path in `~/.zshrc`.
 # Add the following line at the end of the ~/.bashrc file
 alias dree='path/to/project/dree.sh'
 ```
+
 Restart terminal or run:
+
 ```shell
 source ~/.bashrc
 ```
 
-## Run [example]
+## Run
+
+### Print Dree (Directory tree)
 
 Run `dree` followed by number of nested levels you want to visualise:
-```
+
+```shell
 dree 3
+```
+
+### Search file or folder in a directory upto certain depth
+
+```shell
+#eg. search a folder in current directory upto 3 depth
+dree 3 -f "directory_name"
+#eg. search a file in current directory upto 5 depth
+dree 5 -f "file_name"
 ```
 
 # Development
