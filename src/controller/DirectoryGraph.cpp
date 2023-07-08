@@ -92,7 +92,7 @@ void DirectoryGraph::TraverseDirectoriesToSearch(DirectoryNode *node, long long 
 
     int score1 = DirectorySearch::LevenshteinDistance(node->name, query);
     int score2 = DirectorySearch::LevenshteinDistance(node->path, query);
-    if (score1 <= 2 || score2 <= 2)
+    if (score1 * 100 <= (50 * query.length()) || score2 * 100 <= (50 * query.length()))
     {
         results.push_back({min(score1, score2), node});
     }
