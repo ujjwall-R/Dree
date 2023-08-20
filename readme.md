@@ -4,7 +4,7 @@ One single package for visualization, debugging, and exploration of folder hiera
 
 Say no to bulky file managers with Dree.
 
-## Demo
+## Preview
 
 Dree presents the folders in a tree-like format, with the main folder at the top and its subfolders branching out below it. This makes it easier for you to see how the folders are organized and navigate through them.
 
