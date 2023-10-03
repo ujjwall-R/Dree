@@ -6,6 +6,8 @@ Say no to bulky file managers with Dree.
 
 ## Preview
 
+###### Blog : [Link](https://dev.to/ujjwall-r/i-tried-making-a-terminal-based-file-exploration-package-2142)
+
 Dree presents the folders in a tree-like format, with the main folder at the top and its subfolders branching out below it. This makes it easier for you to see how the folders are organized and navigate through them.
 
 One cool thing about Dree is that you can decide how many levels of folders you want to see at a time. For example, if you only want to see the main folder and its immediate subfolders, you can set the depth to 1. If you want to see more levels of folders, you can increase the depth accordingly. This allows you to focus on the specific parts of the folder structure that are most relevant to you.
@@ -16,7 +18,7 @@ In addition to displaying the directory structure, Dree offers a powerful search
 
 ![image](https://github.com/ujjwall-R/Dree/assets/75781631/7424fd22-072f-41f7-8d6c-290a93e3bd4b)
 
-The recommendation feature proves to be particularly helpful when users are unsure about the exact spelling or naming of a file or folder. 
+The recommendation feature proves to be particularly helpful when users are unsure about the exact spelling or naming of a file or folder.
 
 ![image](https://github.com/ujjwall-R/Dree/assets/75781631/49bc8a09-c626-4cde-8fee-a93b4c06e734)
 
