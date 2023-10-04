@@ -9,6 +9,7 @@ We love your input! We want you to make contribution to this repository in the e
 
 ## Contributing
 
+**Star** the repo on GitHub.
 In general, we follow the "fork-and-pull" Git workflow.
 
 1.  **Fork** the repo on GitHub
