@@ -1,10 +1,12 @@
 #include "DirectoryGraph.h"
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
-DirectoryGraph::DirectoryGraph()
+DirectoryGraph::DirectoryGraph(std::set<std::string> &exludedDirectories)
+    : excludedDirectories(exludedDirectories)
 {
     this->allFilesPermited = true;
     this->permissionErrorString = "Note:- Somefiles were omited due to default permission errors!!";
@@ -14,6 +16,11 @@ bool DirectoryGraph::isDirectory(const string &pathStr)
 {
     filesystem::path path(pathStr);
     return filesystem::is_directory(path);
+}
+
+bool DirectoryGraph::isExcluded(const string &dirStr)
+{
+    return (dirStr.front() == '.' || excludedDirectories.find(dirStr) != excludedDirectories.end());
 }
 
 DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, long long depth)
@@ -32,7 +39,7 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     {
         for (const auto &entry : filesystem::directory_iterator(node->path))
         {
-            if (true)
+            if (!isExcluded(entry.path().filename().string()))
             {
                 string childDirectory = entry.path().string();
                 DirectoryNode *child = new DirectoryNode(childDirectory);
