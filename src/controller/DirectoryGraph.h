@@ -13,7 +13,7 @@ using namespace std;
 class DirectoryGraph
 {
 public:
-    DirectoryGraph(set<string> &exludedDirectories);
+    DirectoryGraph(set<string> &exludedDirectories, bool showHidden = false);
     DirectoryNode *BuildGraph(const string &directoryName, long long depth);
 
     void SearchDirectory(const string &directoryName, int searchDepth, const string &query);
@@ -30,6 +30,7 @@ private:
     bool isExcluded(const string &dirStr);
 
     set<string> &excludedDirectories;
+    bool showHidden;
 };
 
 #endif

@@ -38,9 +38,9 @@ void search(int argc, char *argv[], set<string> &excludedDirectories)
 
 void dree(int argc, char *argv[], set<string> &excludedDirectories)
 {
-    if (argc != 3)
+    if (!(argc == 3 || argc == 4))
     {
-        cout << "Missing args" << std::endl;
+        cout << "Missing args dree" << std::endl;
         return;
     }
     string currentPath = argv[1];
@@ -54,7 +54,18 @@ void dree(int argc, char *argv[], set<string> &excludedDirectories)
         return;
     }
 
-    DirectoryGraph builder(excludedDirectories);
+    bool showHidden = false;
+    if(argc == 4) {
+        string flag = argv[3];
+        if(flag == "-a") {
+            showHidden = true;
+        } else {
+            cout << "Unknown flags specified.";
+            return;
+        }
+    }
+
+    DirectoryGraph builder(excludedDirectories, showHidden);
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
 
@@ -66,14 +77,14 @@ int main(int argc, char *argv[])
 {
     set<string> excludedDirectories;
     
-    ifstream file("excluded_directories.txt");
+    ifstream file(".dreeignore");
     string line;
     
     while (getline(file, line)) {
         excludedDirectories.insert(line);
     }
 
-    if (argc == 3)
+    if (argc < 5)
         dree(argc, argv, excludedDirectories);
     else if (argc == 5)
         search(argc, argv, excludedDirectories);

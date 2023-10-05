@@ -5,8 +5,9 @@
 
 using namespace std;
 
-DirectoryGraph::DirectoryGraph(std::set<std::string> &exludedDirectories)
-    : excludedDirectories(exludedDirectories)
+DirectoryGraph::DirectoryGraph(std::set<std::string> &exludedDirectories, bool showHidden)
+    : excludedDirectories(exludedDirectories),
+    showHidden(showHidden)
 {
     this->allFilesPermited = true;
     this->permissionErrorString = "Note:- Somefiles were omited due to default permission errors!!";
@@ -39,12 +40,12 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     {
         for (const auto &entry : filesystem::directory_iterator(node->path))
         {
-            if (!isExcluded(entry.path().filename().string()))
-            {
-                string childDirectory = entry.path().string();
-                DirectoryNode *child = new DirectoryNode(childDirectory);
-                node->children.push_back(child);
-            }
+            if (!showHidden && isExcluded(entry.path().filename().string()))
+                continue;
+
+            string childDirectory = entry.path().string();
+            DirectoryNode *child = new DirectoryNode(childDirectory);
+            node->children.push_back(child);
         }
     }
     catch (const std::exception &e)
