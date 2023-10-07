@@ -1,11 +1,22 @@
 #include "DirectoryGraph.h"
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
-DirectoryGraph::DirectoryGraph()
+DirectoryGraph::DirectoryGraph(bool showHidden)
+    : showHidden(showHidden),
+    excludedDirectories()
 {
+    ifstream file(".dreeignore");
+    string line;
+    
+    while (getline(file, line)) {
+        this->excludedDirectories.insert(line);
+    }
+
     this->allFilesPermited = true;
     this->permissionErrorString = "Note:- Somefiles were omited due to default permission errors!!";
 }
@@ -14,6 +25,11 @@ bool DirectoryGraph::isDirectory(const string &pathStr)
 {
     filesystem::path path(pathStr);
     return filesystem::is_directory(path);
+}
+
+bool DirectoryGraph::isExcluded(const string &dirStr)
+{
+    return (dirStr.front() == '.' || excludedDirectories.find(dirStr) != excludedDirectories.end());
 }
 
 DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, long long depth)
@@ -32,12 +48,12 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     {
         for (const auto &entry : filesystem::directory_iterator(node->path))
         {
-            if (true)
-            {
-                string childDirectory = entry.path().string();
-                DirectoryNode *child = new DirectoryNode(childDirectory);
-                node->children.push_back(child);
-            }
+            if (!showHidden && isExcluded(entry.path().filename().string()))
+                continue;
+
+            string childDirectory = entry.path().string();
+            DirectoryNode *child = new DirectoryNode(childDirectory);
+            node->children.push_back(child);
         }
     }
     catch (const std::exception &e)

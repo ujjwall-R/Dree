@@ -1,9 +1,10 @@
 #include <iostream>
+#include <fstream>
 #include "model/DirectoryNode.h"
 #include "controller/DirectoryGraph.h"
-#include "controller/DirectorySearch.h"
 #include "view/Dree.h"
 #include <filesystem>
+#include <string>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void search(int argc, char *argv[])
 
 void dree(int argc, char *argv[])
 {
-    if (argc != 3)
+    if (!(argc == 3 || argc == 4))
     {
         cout << "Missing args" << std::endl;
         return;
@@ -52,7 +53,18 @@ void dree(int argc, char *argv[])
         return;
     }
 
-    DirectoryGraph builder;
+    bool showHidden = false;
+    if(argc == 4) {
+        string flag = argv[3];
+        if(flag == "-a") {
+            showHidden = true;
+        } else {
+            cout << "Unknown flags specified.";
+            return;
+        }
+    }
+
+    DirectoryGraph builder(showHidden);
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
 
@@ -62,7 +74,7 @@ void dree(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    if (argc == 3)
+    if (argc < 5)
         dree(argc, argv);
     else if (argc == 5)
         search(argc, argv);
