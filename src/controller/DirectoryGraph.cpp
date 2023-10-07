@@ -2,13 +2,21 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
-DirectoryGraph::DirectoryGraph(std::set<std::string> &exludedDirectories, bool showHidden)
-    : excludedDirectories(exludedDirectories),
-    showHidden(showHidden)
+DirectoryGraph::DirectoryGraph(bool showHidden)
+    : showHidden(showHidden),
+    excludedDirectories()
 {
+    ifstream file(".dreeignore");
+    string line;
+    
+    while (getline(file, line)) {
+        this->excludedDirectories.insert(line);
+    }
+
     this->allFilesPermited = true;
     this->permissionErrorString = "Note:- Somefiles were omited due to default permission errors!!";
 }

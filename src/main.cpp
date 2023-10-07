@@ -2,14 +2,13 @@
 #include <fstream>
 #include "model/DirectoryNode.h"
 #include "controller/DirectoryGraph.h"
-//#include "controller/DirectorySearch.h"
 #include "view/Dree.h"
 #include <filesystem>
 #include <string>
 
 using namespace std;
 
-void search(int argc, char *argv[], set<string> &excludedDirectories)
+void search(int argc, char *argv[])
 {
     if (argc != 5)
     {
@@ -30,17 +29,17 @@ void search(int argc, char *argv[], set<string> &excludedDirectories)
         cout << "mask overflow!!";
         return;
     }
-    DirectoryGraph builder(excludedDirectories);
+    DirectoryGraph builder;
     string currentPath = argv[1];
     filesystem::path directoryPath(currentPath);
     builder.SearchDirectory(currentPath, depth, query);
 }
 
-void dree(int argc, char *argv[], set<string> &excludedDirectories)
+void dree(int argc, char *argv[])
 {
     if (!(argc == 3 || argc == 4))
     {
-        cout << "Missing args dree" << std::endl;
+        cout << "Missing args" << std::endl;
         return;
     }
     string currentPath = argv[1];
@@ -65,7 +64,7 @@ void dree(int argc, char *argv[], set<string> &excludedDirectories)
         }
     }
 
-    DirectoryGraph builder(excludedDirectories, showHidden);
+    DirectoryGraph builder(showHidden);
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
 
@@ -75,19 +74,10 @@ void dree(int argc, char *argv[], set<string> &excludedDirectories)
 
 int main(int argc, char *argv[])
 {
-    set<string> excludedDirectories;
-    
-    ifstream file(".dreeignore");
-    string line;
-    
-    while (getline(file, line)) {
-        excludedDirectories.insert(line);
-    }
-
     if (argc < 5)
-        dree(argc, argv, excludedDirectories);
+        dree(argc, argv);
     else if (argc == 5)
-        search(argc, argv, excludedDirectories);
+        search(argc, argv);
     else
         cout << "Dree cannot execute the given command\n";
     return 0;
