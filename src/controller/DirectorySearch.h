@@ -1,16 +1,15 @@
 #ifndef DIRECTORYSEARCH_H
 #define DIRECTORYSEARCH_H
 
-#include <vector>
-#include <string>
 #include <filesystem>
+#include <string>
+#include <vector>
 #include "../model/DirectoryNode.h"
 
 using namespace std;
 
-class DirectorySearch
-{
-public:
+class DirectorySearch {
+   public:
     vector<pair<int, DirectoryNode *>> results;
     int searchDepth;
     DirectorySearch(int searchDepth = 60);
