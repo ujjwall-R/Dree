@@ -49,7 +49,7 @@ void dree(int argc, char *argv[])
     // TODO:add check to prevent overflow
     if (depth >= 60)
     {
-        cout << "mask overflow!!";
+        cout << "mask overflow!!" << endl;
         return;
     }
 
@@ -59,7 +59,7 @@ void dree(int argc, char *argv[])
         if(flag == "-a") {
             showHidden = true;
         } else {
-            cout << "Unknown flags specified.";
+            cout << "Unknown flags specified" << endl;
             return;
         }
     }
