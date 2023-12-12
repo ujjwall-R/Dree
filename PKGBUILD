@@ -38,7 +38,7 @@ package() {
     make all
     location=$(readlink -f dree.sh)
     cd ../..
-    echo "Append the following line into .bashrc or .zshrc (whichever you use)" > post_install
+    echo "Add the following line into .bashrc or .zshrc (whichever you use)" > post_install
     echo "alias=$location" >> post_install
 }
  
