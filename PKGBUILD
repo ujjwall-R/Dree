@@ -1,15 +1,15 @@
-#Maintainer: Ujjwal R. <>
-pkgname=dree-git
-pkgver=2.0.0
+#Maintainer: Ujjwal R. <ujjwal.raj.5798@gmail.com>
+pkgname='dree-git'
+_pkgname='Dree'
+pkgver=v2.0.0.r13.g49a8e4a
 pkgrel=1
-epoch=
 pkgdesc="One single package for visualization, debugging, and exploration of folder hierarchies"
-arch=()
+arch=('x86_64')
 url="https://github.com/ujjwall-R/Dree.git"
 license=('GPL')
 groups=()
 depends=()
-makedepends=()
+makedepends=('git')
 checkdepends=()
 optdepends=()
 provides=(dree)
@@ -22,21 +22,23 @@ changelog=
 source=("git+$url")
 noextract=()
 md5sums=('SKIP')
-validgpkeys=()
 
 pkgver() {
-    cd "${_pkgname}"
-    printf "2.0.0.r%s.%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"   
+    cd "$_pkgname"
+    git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-    cd "$pkgname-$pkgver"
-    ./configure --prefix=/usr
-    make all
+    cd "$_pkgname"
+    if [ ! -d "compile" ]; then mkdir compile; fi && make clean
 }
 
 package() {
-    cd "$pkgname-$pkgver"
-    make DESTDIR="$pkgdir/" install
+    cd "$_pkgname"
+    make all
+    location=$(readlink -f dree.sh)
+    cd ../..
+    echo "Append the following line into .bashrc or .zshrc (whichever you use)" > post_install
+    echo "alias=$location" >> post_install
 }
  
