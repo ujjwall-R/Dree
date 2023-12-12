@@ -28,14 +28,18 @@ pkgver() {
     git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-build() {
+prepare() {
     cd "$_pkgname"
     if [ ! -d "compile" ]; then mkdir compile; fi && make clean
 }
 
-package() {
+build() {
     cd "$_pkgname"
     make all
+}
+
+package() {
+    cd "$_pkgname"
     location=$(readlink -f dree.sh)
     cd ../..
     echo "Add the following line into .bashrc or .zshrc (whichever you use)" > post_install
