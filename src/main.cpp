@@ -1,31 +1,27 @@
-#include <iostream>
-#include <fstream>
-#include "model/DirectoryNode.h"
-#include "controller/DirectoryGraph.h"
-#include "view/Dree.h"
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <string>
+#include "controller/DirectoryGraph.h"
+#include "model/DirectoryNode.h"
+#include "view/Dree.h"
 
 using namespace std;
 
-void search(int argc, char *argv[])
-{
-    if (argc != 5)
-    {
+void search(int argc, char *argv[]) {
+    if (argc != 5) {
         cout << "Missing args"
              << "\n";
         return;
     }
     string flag = argv[3];
-    if (flag != "-f")
-    {
+    if (flag != "-f") {
         cout << "Unknown args: " << argv[3] << "\n";
         return;
     }
     string query = argv[4];
     int depth = stoi(argv[2]);
-    if (depth >= 60)
-    {
+    if (depth >= 60) {
         cout << "mask overflow!!";
         return;
     }
@@ -35,10 +31,8 @@ void search(int argc, char *argv[])
     builder.SearchDirectory(currentPath, depth, query);
 }
 
-void dree(int argc, char *argv[])
-{
-    if (!(argc == 3 || argc == 4))
-    {
+void dree(int argc, char *argv[]) {
+    if (!(argc == 3 || argc == 4)) {
         cout << "Missing args" << std::endl;
         return;
     }
@@ -54,9 +48,9 @@ void dree(int argc, char *argv[])
     }
 
     bool showHidden = false;
-    if(argc == 4) {
+    if (argc == 4) {
         string flag = argv[3];
-        if(flag == "-a") {
+        if (flag == "-a") {
             showHidden = true;
         } else {
             cout << "Unknown flags specified" << endl;
@@ -68,12 +62,10 @@ void dree(int argc, char *argv[])
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
 
-    if (!builder.allFilesPermited)
-        cout << builder.permissionErrorString;
+    if (!builder.allFilesPermited) cout << builder.permissionErrorString;
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     if (argc < 5)
         dree(argc, argv);
     else if (argc == 5)
