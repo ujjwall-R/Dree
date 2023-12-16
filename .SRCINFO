@@ -1,0 +1,13 @@
+pkgbase = dree-git
+	pkgdesc = One single package for visualization, debugging, and exploration of folder hierarchies
+	pkgver = v2.0.0.r13.g49a8e4a
+	pkgrel = 1
+	url = https://github.com/ujjwall-R/Dree.git
+	arch = x86_64
+	license = GPL
+	makedepends = git
+	provides = dree
+	source = git+https://github.com/ujjwall-R/Dree.git
+	md5sums = SKIP
+
+pkgname = dree-git
