@@ -1,14 +1,13 @@
 #ifndef DIRECTORYNODE_H
 #define DIRECTORYNODE_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-class DirectoryNode
-{
-public:
+class DirectoryNode {
+   public:
     string name;
     string path;
     vector<DirectoryNode *> children;

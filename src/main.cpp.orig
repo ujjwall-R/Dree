@@ -7,6 +7,7 @@
 #include "view/Dree.h"
 
 using namespace std;
+<<<<<<< HEAD
 void help(){
 	cout<<"\tdree: "<<"dree "<<"[dep] [-f [dir|file]][-a]"<<"\n";
 	cout<<"\tVisualize directories until certain depth"<<"\n";
@@ -23,10 +24,15 @@ bool isNumber(string line)
     strtol(line.c_str(), &p, 10);
     return *p == 0;
 }
+void search(int argc, char *argv[])
+{
+    if (argc != 5)
+    {
+=======
 
 void search(int argc, char *argv[]) {
     if (argc != 5) {
-
+>>>>>>> origin/dev
         cout << "Missing args"
              << "\n";
         return;
@@ -55,6 +61,7 @@ void dree(int argc, char *argv[]) {
     }
     string currentPath = argv[1];
     filesystem::path directoryPath(currentPath);
+<<<<<<< HEAD
 	bool showHidden = false;
 	int depth = -1;
 	if(argc == 4 || (argc == 3 && isNumber(argv[2]))){
@@ -84,7 +91,8 @@ void dree(int argc, char *argv[]) {
 			return;
 		}
 	}
-     depth = stoi(argv[2]);
+=======
+    int depth = stoi(argv[2]);
 
     // TODO:add check to prevent overflow
     if (depth >= 60) {
@@ -92,7 +100,7 @@ void dree(int argc, char *argv[]) {
         return;
     }
 
-     showHidden = false;
+    bool showHidden = false;
     if (argc == 4) {
         string flag = argv[3];
         if (flag == "-a") {
@@ -102,6 +110,8 @@ void dree(int argc, char *argv[]) {
             return;
         }
     }
+
+>>>>>>> origin/dev
     DirectoryGraph builder(showHidden);
     auto root = builder.BuildGraph(currentPath, depth);
     builder.PrintGraphDFS(root, depth);
