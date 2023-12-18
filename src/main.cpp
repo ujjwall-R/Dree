@@ -7,19 +7,28 @@
 #include "view/Dree.h"
 
 using namespace std;
-void help(){
-	cout<<"\tdree: "<<"dree "<<"[dep] [-f [dir|file]][-a]"<<"\n";
-	cout<<"\tVisualize directories until certain depth"<<"\n";
-	cout<<"\n";
-	cout<<"\trun dree followed by the number of levels you want to visualize"<<"\n";
-	cout<<"\n";
-	cout<<"\tOptions:"<<"\n";
-	cout<<"\t   -f   \t"<<"search for a directory or file upto the specified depth"<<"\n";
-	cout<<"\t   -a   \t"<<"Show hidden files"<<"\n";
+void help() {
+    cout << "\tdree: "
+         << "dree "
+         << "[dep] [-f [dir|file]][-a]"
+         << "\n";
+    cout << "\tVisualize directories until certain depth"
+         << "\n";
+    cout << "\n";
+    cout << "\trun dree followed by the number of levels you want to visualize"
+         << "\n";
+    cout << "\n";
+    cout << "\tOptions:"
+         << "\n";
+    cout << "\t   -f   \t"
+         << "search for a directory or file upto the specified depth"
+         << "\n";
+    cout << "\t   -a   \t"
+         << "Show hidden files"
+         << "\n";
 }
-bool isNumber(string line)
-{
-    char* p;
+bool isNumber(string line) {
+    char *p;
     strtol(line.c_str(), &p, 10);
     return *p == 0;
 }
@@ -55,45 +64,41 @@ void dree(int argc, char *argv[]) {
     }
     string currentPath = argv[1];
     filesystem::path directoryPath(currentPath);
-	bool showHidden = false;
-	int depth = -1;
-	if(argc == 4 || (argc == 3 && isNumber(argv[2]))){
-	    depth = stoi(argv[2]);
-		// TODO:add check to prevent overflow
-		if (depth >= 60)
-		{
-			cout << "mask overflow!!";
-			return;
-		}
+    bool showHidden = false;
+    int depth = -1;
+    if (argc == 4 || (argc == 3 && isNumber(argv[2]))) {
+        depth = stoi(argv[2]);
+        // TODO:add check to prevent overflow
+        if (depth >= 60) {
+            cout << "mask overflow!!";
+            return;
+        }
         showHidden = false;
-		if(argc == 4){    
-			string flag = argv[3];
-			if(flag == "-a") {
-				showHidden = true;
-			} else {
-				cout << "Unknown flags specified.";
-				return;
-			}	
-       
-	   	}
-	}
-	else if(argc == 3){
-		string flag = argv[2];
-		if(flag == "--help"){
-			help();
-			return;
-		}
-	}
-     depth = stoi(argv[2]);
+        if (argc == 4) {
+            string flag = argv[3];
+            if (flag == "-a") {
+                showHidden = true;
+            } else {
+                cout << "Unknown flags specified.";
+                return;
+            }
+        }
+    } else if (argc == 3) {
+        string flag = argv[2];
+        if (flag == "--help") {
+            help();
+            return;
+        }
+    }
+    depth = stoi(argv[2]);
 
     // TODO:add check to prevent overflow
-    if (depth >= 60)
-    {
+    if (depth >= 60) {
         cout << "mask overflow!!" << endl;
         return;
     }
 
-     showHidden = false;
+    showHidden = false;
     if (argc == 4) {
         string flag = argv[3];
         if (flag == "-a") {
