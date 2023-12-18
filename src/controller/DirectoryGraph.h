@@ -30,6 +30,7 @@ class DirectoryGraph {
     bool isExcluded(const string &dirStr);
 
     set<string> excludedDirectories;
+    string icon(const string &pathStr,long long depth, long long currentDepth);
     bool showHidden;
 };
 

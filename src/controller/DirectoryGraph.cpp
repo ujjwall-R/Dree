@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include<filesystem>
 
 using namespace std;
 
@@ -61,13 +62,13 @@ void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth, long lo
 
     for (long long i = 0; i < currentDepth; i++) {
         if (((mask >> i) & 1ll) == 0ll)
-            cout << "│    ";
+            cout << "│   ";
         else
-            cout << "     ";
+            cout << "    ";
     }
-    isLastChild ? cout << "└── " : cout << "├── ";
+    isLastChild ? cout << "└──" : cout << "├──";
 
-    cout << node->name << "\n";
+    cout <<icon(node->path,depth,currentDepth) <<node->name << "\n";
     for (size_t i = 0; i < node->children.size(); i++) {
         DirectoryNode *child = node->children[i];
         if (i == node->children.size() - 1) {
@@ -134,4 +135,17 @@ void DirectoryGraph::SearchDirectory(const string &directoryName, int searchDept
             }
         }
     }
+}
+string DirectoryGraph::icon(const string &pathStr,long long depth, long long currentDepth){
+    if(isDirectory(pathStr)){
+        if(depth-currentDepth<=1||filesystem::is_empty(pathStr)){
+            string ret="\U0001F4C1 ";
+            if(filesystem::is_empty(pathStr)){
+                ret+="(empty folder) ";
+            }
+            return ret;
+        }
+        return "\U0001F4C2 ";
+    }
+    return "\U0001F4C4 ";
 }
