@@ -5,6 +5,7 @@
 
 class Dree {
    private:
+    int depth;
     DreeNode *root;
 
    public:
