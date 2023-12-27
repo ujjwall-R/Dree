@@ -1,6 +1,12 @@
 #ifndef DREEIGNORE_H
 #define DREEIGNORE_H
 
-class DreeIgnore {};
+#include <set>
+
+class DreeIgnore {
+   private:
+    //TODO:Implement Trie
+   public:
+};
 
 #endif
