@@ -10,7 +10,7 @@ using namespace std;
 void help() {
     cout << "\tdree: "
          << "dree "
-         << "[dep] [-f [dir|file]][-a]"
+         << "[dep] [-f [dir|file]][-a][-b]"
          << "\n";
     cout << "\tVisualize directories until certain depth"
          << "\n";
@@ -25,6 +25,9 @@ void help() {
          << "\n";
     cout << "\t   -a   \t"
          << "Show hidden files"
+         << "\n";
+    cout << "\t   -b   \t"
+         << "Visualize directories util certian depth in levelorder fashion"
          << "\n";
 }
 bool isNumber(string line) {
@@ -65,6 +68,7 @@ void dree(int argc, char *argv[]) {
     string currentPath = argv[1];
     filesystem::path directoryPath(currentPath);
     bool showHidden = false;
+    bool sw=true;
     int depth = -1;
     if (argc == 4 || (argc == 3 && isNumber(argv[2]))) {
         depth = stoi(argv[2]);
@@ -78,7 +82,11 @@ void dree(int argc, char *argv[]) {
             string flag = argv[3];
             if (flag == "-a") {
                 showHidden = true;
-            } else {
+            } 
+            else if(flag=="-b"){
+                sw=false;
+            }
+            else {
                 cout << "Unknown flags specified.";
                 return;
             }
@@ -103,15 +111,23 @@ void dree(int argc, char *argv[]) {
         string flag = argv[3];
         if (flag == "-a") {
             showHidden = true;
-        } else {
+        }
+        else if(flag== "-b"){
+            sw=false;
+        } 
+        else {
             cout << "Unknown flags specified" << endl;
             return;
         }
     }
     DirectoryGraph builder(showHidden);
     auto root = builder.BuildGraph(currentPath, depth);
-    builder.PrintGraphDFS(root, depth);
-
+    if(sw){
+        builder.PrintGraphDFS(root, depth);
+    }
+    else{
+        builder.PrintGraphBFS(root,depth);
+    }
     if (!builder.allFilesPermited) cout << builder.permissionErrorString;
 }
 
