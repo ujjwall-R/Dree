@@ -10,4 +10,7 @@ string DirectoryNode::getFileName(string path) {
     return path;
 }
 
-DirectoryNode::DirectoryNode(const string &path) : path(path) { this->name = this->getFileName(path); }
+DirectoryNode::DirectoryNode(const string &path) : path(path) { 
+    this->name = this->getFileName(path); 
+    this->pos=0;
+}

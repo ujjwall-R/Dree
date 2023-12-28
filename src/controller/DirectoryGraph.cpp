@@ -3,13 +3,13 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
+#include<filesystem>
+#include<queue>
 using namespace std;
 
-DirectoryGraph::DirectoryGraph(bool showHidden) : showHidden(showHidden), excludedDirectories() {
+DirectoryGraph::DirectoryGraph(bool showHidden) : p(0),showHidden(showHidden), excludedDirectories() {
     ifstream file(".dreeignore");
     string line;
-
     while (getline(file, line)) {
         this->excludedDirectories.insert(line);
     }
@@ -29,13 +29,11 @@ bool DirectoryGraph::isExcluded(const string &dirStr) {
 
 DirectoryNode *DirectoryGraph::BuildGraph(const string &directoryName, long long depth) {
     DirectoryNode *graph = new DirectoryNode(directoryName);
-    TraverseDirectoriesDFS(graph, depth, 0);
+    TraverseDirectoriesDFS(graph, depth,1);
     return graph;
 }
 
 void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth, long long currentDepth) {
-    if (currentDepth > depth) return;
-
     try {
         for (const auto &entry : filesystem::directory_iterator(node->path)) {
             if (!showHidden && isExcluded(entry.path().filename().string())) continue;
@@ -47,27 +45,29 @@ void DirectoryGraph::TraverseDirectoriesDFS(DirectoryNode *node, long long depth
     } catch (const std::exception &e) {
         this->allFilesPermited = false;
     }
-
-    for (auto ch : node->children) {
-        if (isDirectory(ch->path)) {
-            TraverseDirectoriesDFS(ch, depth, currentDepth + 1);
-        }
+    if (currentDepth == depth||node->children.empty()){
+        node->pos=p;
+        p=max(p,(long long)(node->pos+node->name.size()+5));
+        return ;
     }
+    for (auto ch : node->children) {
+        TraverseDirectoriesDFS(ch, depth, currentDepth + 1);
+    }
+    node->pos=(node->children[0]->pos+node->children.back()->pos)/2;
+    p=max(p,(long long)(node->pos+node->name.size()+5));
 }
-
-void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth, long long currentDepth, bool isLastChild,
-                                   long long mask) {
+void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth, long long currentDepth, bool isLastChild,long long mask) {
     if (currentDepth == depth) return;
 
     for (long long i = 0; i < currentDepth; i++) {
         if (((mask >> i) & 1ll) == 0ll)
-            cout << "│    ";
+            cout << "│   ";
         else
-            cout << "     ";
+            cout << "    ";
     }
-    isLastChild ? cout << "└── " : cout << "├── ";
+    isLastChild ? cout << "└──" : cout << "├──";
 
-    cout << node->name << "\n";
+    cout <<node->name << "\n";
     for (size_t i = 0; i < node->children.size(); i++) {
         DirectoryNode *child = node->children[i];
         if (i == node->children.size() - 1) {
@@ -80,7 +80,106 @@ void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth, long lo
 void DirectoryGraph::PrintGraphDFS(DirectoryNode *node, long long depth) {
     this->PrintGraphDFS(node, depth, 0ll, true, 1ll);
 }
-
+void DirectoryGraph::print_char(FILE* st,const char* c){
+    if(!st){
+        cout<<c;
+    }
+    fprintf(st,"%s",c);
+}
+void DirectoryGraph::print_name(FILE* st,queue<DirectoryNode*>& q,long long depth){
+    long long len=q.size();
+    long long pos=0;
+    while(len){
+        if(pos==q.front()->pos){
+            DirectoryNode* node=q.front();
+            q.pop();
+            print_char(st,node->name.c_str());
+            pos+=node->name.size();
+            q.push(node);
+            len--;
+        }
+        else{
+            print_char(st," ");
+            pos++;
+        }
+    }
+    print_char(st,"\n");
+}
+void DirectoryGraph::print_line(FILE* st,queue<DirectoryNode*>& q,long long depth){
+    if(!(depth-1)){
+        return ;
+    }
+    long long len=q.size();
+    long long pos=0;
+    while(len){
+        DirectoryNode* node=q.front();
+        q.pop();
+        queue<int> temp;
+        for(auto ch:node->children){
+            temp.push(ch->pos);
+        }
+        bool sw=true;
+        while(!temp.empty()){
+            if(pos==node->pos){
+                if(pos==temp.front()){
+                    if(node->children.size()==1){
+                        print_char(st,"│");
+                    }
+                    else{
+                        print_char(st,"┼");
+                    }
+                    temp.pop();
+                }
+                else{
+                    print_char(st,"┴");
+                }
+            }
+            else if(pos==temp.front()){
+                if(pos==node->children[0]->pos){
+                    print_char(st,"┌");
+                    sw=false;
+                }
+                else if(pos==node->children.back()->pos){
+                    print_char(st,"┐");
+                }
+                else{
+                    print_char(st,"┬");
+                }
+                temp.pop();
+            }
+            else if(sw){
+                print_char(st," ");
+            }
+            else{
+                print_char(st,"─");
+            }
+            pos++;
+        }
+        q.push(node);
+        len--;
+    }
+    print_char(st,"\n");
+}
+void DirectoryGraph::PrintGraphBFS(DirectoryNode* node,long long depth){
+    FILE* st=popen("less -S","w");
+    queue<DirectoryNode*> q;
+    q.push(node);
+    while(depth&&!q.empty()){
+        print_name(st,q,depth);
+        print_line(st,q,depth);
+        long long len=q.size();
+        while(len){
+            DirectoryNode* node=q.front();
+            q.pop();
+            for(auto ch:node->children){
+                q.push(ch);
+            }
+            len--;
+        }
+        depth--;
+    }
+    pclose(st);
+}
 void DirectoryGraph::TraverseDirectoriesToSearch(DirectoryNode *node, long long depth, long long currentDepth,
                                                  const string &query, vector<pair<int, DirectoryNode *>> &results) {
     if (currentDepth > depth) return;

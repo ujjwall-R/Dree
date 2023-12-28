@@ -10,6 +10,7 @@ class DirectoryNode {
    public:
     string name;
     string path;
+    long long pos;
     vector<DirectoryNode *> children;
 
     string getFileName(string path);
