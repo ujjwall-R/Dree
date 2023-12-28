@@ -3,14 +3,15 @@
 
 #include <filesystem>
 #include <string>
+#include "DreeHelpersI.h"
 
 using namespace std;
 
-class DreeHelpers {
+class DreeHelpers : DreeHelpersI {
    public:
-    bool static string_is_a_directory(const string &pathString);
+    bool string_is_a_directory(const string &pathString) override;
 
-    string static get_current_directory_path();
+    string get_current_directory_path() override;
 };
 
 #endif

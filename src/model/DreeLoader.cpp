@@ -1,7 +1,7 @@
 #include "DreeLoader.h"
 
 DreeNode *DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long depth, long long currentDepth,
-                                                  DreeIgnoreI *dreeIgnore) {
+                                                  DreeIgnoreI *dreeIgnore, DreeHelpersI *dreeHelpers) {
     if (currentDepth > depth) return;
 
     try {
@@ -17,10 +17,13 @@ DreeNode *DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long dept
     }
 
     for (auto ch : node->children) {
-        if (DreeHelpers::string_is_a_directory(ch->path)) {
+        if (dreeHelpers->string_is_a_directory(ch->path)) {
             traverse_dfs_and_build_tree(ch, depth, currentDepth + 1, dreeIgnore);
         }
     }
 }
 
-DreeNode *DreeLoader::load_dree() {}
+DreeNode *DreeLoader::load_dree(Args *args, DreeIgnoreI *dreeIgnore, DreeHelpersI *dreeHelpers) {
+    DreeNode *root = new DreeNode(args->currentPath);
+    traverse_dfs_and_build_tree(root, args->MaxDepth, 0, dreeIgnore, dreeHelpers);
+}

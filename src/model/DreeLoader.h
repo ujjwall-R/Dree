@@ -10,10 +10,10 @@
 class DreeLoader : public DreeLoaderI {
    private:
     DreeNode* traverse_dfs_and_build_tree(DreeNode* node, long long depth, long long currentDepth,
-                                          DreeIgnoreI* dreeIgnore);
+                                          DreeIgnoreI* dreeIgnore, DreeHelpersI* dreeHelpers);
 
    public:
-    DreeNode* load_dree() override;
+    DreeNode* load_dree(Args* args, DreeIgnoreI* dreeIgnore, DreeHelpersI* dreeHelpers) override;
 };
 
 #endif
