@@ -75,6 +75,15 @@ dree 5 -f "file_name"
 
 Dree includes a `.dreeignore` file that enlists some commonly ignored files and directories. This can be overriden be the use of the `-a` flag.
 
+### Add or remove file or folder from .dreeignore
+
+```shell
+#eg. Add a file or folder to .dreeignore
+dree -w "file or folder name"
+#eg. Remove a file or folder from .dreeignore
+dree -r "file or folder name"
+```
+
 ![image](https://github.com/Ruberald/Dree/assets/31573113/6437731d-c799-4c8e-b939-9e6ef8984d87)
 
 ![image](https://github.com/Ruberald/Dree/assets/31573113/3e28ebdd-4311-4801-87aa-a08e2e8014d3)

@@ -10,7 +10,7 @@ using namespace std;
 void help() {
     cout << "\tdree: "
          << "dree "
-         << "[dep] [-f [dir|file]][-a]"
+         << "[dep] [-f [dir|file]][-a][-w][-r]"
          << "\n";
     cout << "\tVisualize directories until certain depth"
          << "\n";
@@ -25,6 +25,12 @@ void help() {
          << "\n";
     cout << "\t   -a   \t"
          << "Show hidden files"
+         << "\n";
+    cout << "\t   -w   \t"
+         << "Add files to .dreeignore file"
+         << "\n";
+    cout << "\t   -r   \t"
+         << "Remove files from .dreeignore file"
          << "\n";
 }
 bool isNumber(string line) {
@@ -56,7 +62,58 @@ void search(int argc, char *argv[]) {
     filesystem::path directoryPath(currentPath);
     builder.SearchDirectory(currentPath, depth, query);
 }
-
+void update_dreeignore(string file_name){
+    ifstream in("./.dreeignore");
+    ofstream out("./temp.txt");
+    if(!in.is_open()){
+        cout<<"Error opening dreeignore file.\n";
+    }
+    string line;
+    while(getline(in,line)){
+        if(line==file_name){
+            cout<<"Successfully added.\n";
+            return ;
+        }
+    }
+    in.close();
+    in.open("./.dreeignore");
+    while(getline(in,line)){
+        out<<line+'\n';
+    }
+    out<<file_name;
+    cout<<"Successfully added.\n";
+    remove("./.dreeignore");
+    rename("./temp.txt","./.dreeignore");
+    out.close();
+    in.close();
+    return ;
+}
+void remove_file(string file_name){
+    string line;
+    ifstream in("./.dreeignore");
+    if(!in.is_open()){
+        cout<<"Error opening dreeignore file.\n";
+    }
+    ofstream out("./temp.txt");
+    bool sw=true;;
+    while(getline(in,line)){
+        if(line!=file_name){
+            if(sw){
+                sw=false;
+            }
+            else{
+                out<<'\n';
+            }
+            out<<line;
+        }
+    }
+    in.close();
+    out.close();
+    remove("./.dreeignore");
+    rename("./temp.txt","./.dreeignore");
+    cout<<"Removed successfully.\n";
+    return ;
+}
 void dree(int argc, char *argv[]) {
     if (!(argc == 3 || argc == 4)) {
         cout << "Missing args" << std::endl;
@@ -67,7 +124,6 @@ void dree(int argc, char *argv[]) {
     bool showHidden = false;
     int depth = -1;
     if (argc == 4 || (argc == 3 && isNumber(argv[2]))) {
-        depth = stoi(argv[2]);
         // TODO:add check to prevent overflow
         if (depth >= 60) {
             cout << "mask overflow!!";
@@ -75,17 +131,25 @@ void dree(int argc, char *argv[]) {
         }
         showHidden = false;
         if (argc == 4) {
-            string flag = argv[3];
-            if (flag == "-a") {
+            if (string(argv[3])== "-a") {
+                depth = stoi(argv[2]);
                 showHidden = true;
-            } else {
+            }
+            else if(string(argv[2]) ==  "-w"){
+                update_dreeignore(argv[3]);
+                return ;
+            } 
+            else if(string(argv[2]) ==  "-r"){
+                remove_file(argv[3]);
+                return ;
+            } 
+            else {
                 cout << "Unknown flags specified.";
                 return;
             }
         }
     } else if (argc == 3) {
-        string flag = argv[2];
-        if (flag == "--help") {
+        if (string(argv[2]) == "--help") {
             help();
             return;
         }
