@@ -26,4 +26,5 @@ DreeNode *DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long dept
 DreeNode *DreeLoader::load_dree(Args *args, DreeIgnoreI *dreeIgnore, DreeHelpersI *dreeHelpers) {
     DreeNode *root = new DreeNode(args->currentPath);
     traverse_dfs_and_build_tree(root, args->MaxDepth, 0, dreeIgnore, dreeHelpers);
+    return root;
 }

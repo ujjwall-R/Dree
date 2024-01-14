@@ -1,12 +1,13 @@
-#include <bits/stdc++.h>
 using namespace std;
 
 void solve() {}
 
-signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    //int _t;cin >> _t;while (_t--)
-    solve();
+int main(int argc, char* argv[]) {
+    if (argc < 5)
+        dree(argc, argv);
+    else if (argc == 5)
+        search(argc, argv);
+    else
+        cout << "Dree cannot execute the given command\n";
+    return 0;
 }
