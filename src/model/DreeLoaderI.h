@@ -8,7 +8,7 @@ using namespace std;
 
 class DreeLoaderI {
    public:
-    virtual DreeNode *load_dree(Args *args, DreeIgnoreI *dreeIgnore, DreeHelpersI *dreeHelpers) = 0;
+    virtual DreeNode *load_dree(Args *args) = 0;
 };
 
 #endif
