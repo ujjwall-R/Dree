@@ -1,20 +1,19 @@
 #ifndef DREENODE_H
 #define DREENODE_H
 
+#include <string>
 #include <vector>
-
-using namespace std;
 
 class DreeNode {
    private:
-    string get_file_name_from_path(string &path);
+    std::string get_file_name_from_path(std::string &path);
 
    public:
-    string name;
-    string path;
-    vector<DreeNode *> children;
+    std::string name;
+    std::string path;
+    std::vector<DreeNode *> children;
 
-    DreeNode(string &str);
+    DreeNode(std::string &str);
 };
 
 #endif

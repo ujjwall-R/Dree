@@ -1,7 +1,6 @@
-#include <DreeNode.h>
-#include <string>
+#include "DreeNode.h"
 
-string DreeNode::get_file_name_from_path(string &path) {
+std::string DreeNode::get_file_name_from_path(std::string &path) {
     size_t lastSlash = path.find_last_of('/');
     if (lastSlash != std::string::npos) {
         return path.substr(lastSlash + 1);
@@ -9,7 +8,7 @@ string DreeNode::get_file_name_from_path(string &path) {
     return path;
 }
 
-DreeNode::DreeNode(string &str) {
-    this->path = str;
-    this->name = get_file_name_from_path(path);
+DreeNode::DreeNode(std::string &str) {
+    path = str;
+    name = get_file_name_from_path(path);
 }

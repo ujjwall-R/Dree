@@ -1,11 +1,12 @@
 #include "DreeLoader.h"
+// #include <iostream>
 
-DreeNode *DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long depth, long long currentDepth) {
+void DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long depth, long long currentDepth) {
     if (currentDepth > depth) return;
 
     try {
         for (const auto &entry : filesystem::directory_iterator(node->path)) {
-            if (!dreeIgnoreInterface->file_is_in_dree_ignore(entry.path().filename().string())) continue;
+            // if (!dreeIgnoreInterface->file_is_in_dree_ignore(entry.path().filename().string())) continue;
 
             string childDirectory = entry.path().string();
             DreeNode *child = new DreeNode(childDirectory);
@@ -23,7 +24,11 @@ DreeNode *DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long dept
 }
 
 DreeNode *DreeLoader::load_dree(Args *args) {
+    // cout << "yo"
+    //      << "\n";
+
+    // cout << args->MaxDepth << "\n";
     DreeNode *root = new DreeNode(args->currentPath);
-    traverse_dfs_and_build_tree(root, args->MaxDepth, 0);
+    // traverse_dfs_and_build_tree(root, args->MaxDepth, 0);
     return root;
 }

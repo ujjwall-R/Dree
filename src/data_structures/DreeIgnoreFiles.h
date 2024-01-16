@@ -3,7 +3,7 @@
 
 #include <set>
 
-class DreeIgnore {
+class DreeIgnoreFiles {
    private:
     //TODO:Implement Trie
    public:

@@ -9,6 +9,7 @@ class Args {
    public:
     long long MaxDepth;
     string currentPath;
+    Args(long long dep, string path);
 };
 
 #endif

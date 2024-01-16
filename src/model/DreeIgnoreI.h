@@ -3,7 +3,6 @@
 
 using namespace std;
 #include <string>
-#include "src/data_structures/DreeIgnore.h"
 
 class DreeIgnoreI {
    public:

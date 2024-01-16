@@ -2,7 +2,7 @@
 #define SEARCHDIRECTORYI_H
 
 #include <filesystem>
-#include "src/data_structures/SearchDirectoryResult.h"
+#include "../data_structures/SearchDirectoryResult.h"
 
 using namespace std;
 

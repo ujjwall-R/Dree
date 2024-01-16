@@ -2,7 +2,7 @@
 #define ABOUTI_H
 
 #include <filesystem>
-#include "src/data_structures/Args.h"
+#include "../data_structures/Args.h"
 
 using namespace std;
 
