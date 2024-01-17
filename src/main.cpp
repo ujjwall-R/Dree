@@ -3,9 +3,11 @@
 #include <sstream>
 #include <string>
 #include "controller/DreeController.h"
+#include "controller/HelpController.h"
 #include "data_structures/Args.h"
 #include "model/DreeIgnore.h"
 #include "model/DreeLoader.h"
+#include "view/AboutDree.h"
 #include "view/PrintDree.h"
 
 #ifdef __linux__
@@ -40,6 +42,15 @@ int main(int argc, char* argv[]) {
     cout << "Initial memory usage: " << initialMemory << " KB" << endl;
 #endif
 
+    // if (argc == 3) {
+    //     string flag = argv[2];
+    //     if (flag == "--help") {
+    //         AboutDree aboutView;
+    //         HelpControllerI* controller = new HelpController(&aboutView);
+    //         controller->help();
+    //     }
+    //     return 0;
+    // }
     if (argc < 5) {
         PrintDree dreePrinter;
         DreeIgnore dreeIgnore;
