@@ -1,6 +1,7 @@
 #include <iostream>
 #include "controller/DreeController.h"
 #include "data_structures/Args.h"
+#include "model/DreeIgnore.h"
 #include "model/DreeLoader.h"
 #include "view/PrintDree.h"
 
@@ -12,7 +13,8 @@ int main(int argc, char* argv[]) {
     if (argc < 5) {
         // dree(argc, argv);
         PrintDree dreePrinter;
-        DreeLoader dreeLoader;
+        DreeIgnore dreeIgnore;
+        DreeLoader dreeLoader(&dreeIgnore);
 
         Args* arg = new Args(stoll(argv[2]), argv[1]);
         DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);

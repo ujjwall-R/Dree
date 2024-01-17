@@ -16,6 +16,7 @@ class DreeLoader : public DreeLoaderI {
 
    public:
     DreeNode* load_dree(Args* args) override;
+    DreeLoader(DreeIgnoreI* dreeIgnoreInterface);
 };
 
 #endif

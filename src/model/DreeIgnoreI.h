@@ -6,7 +6,7 @@ using namespace std;
 
 class DreeIgnoreI {
    public:
-    virtual bool file_is_in_dree_ignore(string& directoryString) = 0;
+    virtual bool file_is_in_dree_ignore(string directoryString) = 0;
 };
 
 #endif
