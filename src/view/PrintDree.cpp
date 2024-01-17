@@ -1,8 +1,6 @@
 #include "PrintDree.h"
 
 void PrintDree::dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask) {
-    if (currentDepth == depth) return;
-
     for (long long i = 0; i < currentDepth; i++) {
         if (((mask >> i) & 1ll) == 0ll)
             cout << "│    ";
@@ -19,6 +17,8 @@ void PrintDree::dfs(DreeNode* node, long long depth, long long currentDepth, boo
         }
         dfs(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
+    node->children.clear();
+    delete node;
 }
 
 void PrintDree::depth_first_search(DreeNode* node, long long maxDepth) {

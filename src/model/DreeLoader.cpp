@@ -2,10 +2,12 @@
 #include <iostream>
 
 void DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long depth, long long currentDepth) {
-    if (currentDepth > depth) return;
+    if (currentDepth == depth) {
+        return;
+    }
     try {
         for (const auto &entry : filesystem::directory_iterator(node->path)) {
-            if (dreeIgnoreInterface->file_is_in_dree_ignore(entry.path().filename().string())) continue;
+            // if (dreeIgnoreInterface->file_is_in_dree_ignore(entry.path().filename().string())) continue;
             string childDirectory = entry.path().string();
             DreeNode *child = new DreeNode(childDirectory);
             node->children.push_back(child);
