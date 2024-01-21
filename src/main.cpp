@@ -4,11 +4,14 @@
 #include <string>
 #include "controller/DreeController.h"
 #include "controller/HelpController.h"
+#include "controller/SearchController.h"
 #include "data_structures/Args.h"
 #include "model/DreeIgnore.h"
 #include "model/DreeLoader.h"
+#include "model/SearchDirectory.h"
 #include "view/AboutDree.h"
 #include "view/PrintDree.h"
+#include "view/SearchResults.h"
 
 #ifdef __linux__
 #include <unistd.h>
@@ -34,7 +37,7 @@ size_t getMemoryUsageKB() {
 }
 #endif
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     // ... (your existing code)
 
 #ifdef __linux__
@@ -51,24 +54,30 @@ int main(int argc, char* argv[]) {
     //     }
     //     return 0;
     // }
-    if (argc < 5) {
-        PrintDree dreePrinter;
-        DreeIgnore dreeIgnore;
-        DreeLoader dreeLoader(&dreeIgnore);
+    // if (argc < 5) {
+    //     PrintDree dreePrinter;
+    //     DreeIgnore dreeIgnore;
+    //     DreeLoader dreeLoader(&dreeIgnore);
 
-        Args* arg = new Args(stoll(argv[2]), argv[1]);
-        DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);
-        controller->print_dree(arg);
+    //     Args* arg = new Args(stoll(argv[2]), argv[1]);
+    //     DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);
+    //     controller->print_dree(arg);
 
-        delete arg;
-        delete controller;
+    //     delete arg;
+    //     delete controller;
+    // }
+
+    if (argc == 5) {
+        DreeHelpers dreeHelpers;
+        SearchResults searchResulPrinter;
+        SearchDirectory searchModel;
+        Args *args;
+        SearchController searchController();
     }
-
 #ifdef __linux__
     size_t finalMemory = getMemoryUsageKB();
     cout << "Final memory usage: " << finalMemory << " KB" << endl;
     cout << "Memory change: " << finalMemory - initialMemory << " KB" << endl;
 #endif
-
     return 0;
 }

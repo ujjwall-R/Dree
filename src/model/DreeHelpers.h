@@ -10,6 +10,8 @@ using namespace std;
 class DreeHelpers : DreeHelpersI {
    public:
     bool string_is_a_directory(const string &pathString) override;
+
+    int levenshtein_distance_between_strings(const string &s1, const string &s2) override;
 };
 
 #endif
