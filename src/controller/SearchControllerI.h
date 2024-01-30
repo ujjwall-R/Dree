@@ -8,7 +8,7 @@ using namespace std;
 
 class SearchControllerI {
    public:
-    virtual void search(string& query) = 0;
+    virtual void search(string& query, Args* args) = 0;
 };
 
 #endif

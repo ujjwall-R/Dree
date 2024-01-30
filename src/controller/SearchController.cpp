@@ -9,4 +9,8 @@ SearchController::SearchController(DreeHelpersI* dreeHelpers, SearchResultsI* se
     this->dreeHelpers = dreeHelpers;
 }
 
-void SearchController::search(string& query) { std::cout << "Searching...\n"; }
+void SearchController::search(string& query, Args* args) {
+    DreeNode* root = new DreeNode(args->currentPath);
+    auto searchResult = searchModel->search(root, query, dreeHelpers);
+    searchResulPrinter->print_search_results(searchResult);
+}

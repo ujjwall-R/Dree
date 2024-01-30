@@ -2,13 +2,15 @@
 #define SEARCHDIRECTORYI_H
 
 #include <filesystem>
+#include <vector>
+#include "../data_structures/DreeNode.h"
 #include "../data_structures/SearchDirectoryResult.h"
 
 using namespace std;
 
 class SearchDirectoryI {
    public:
-    virtual SearchDirectoryResult* search() = 0;
+    virtual vector<pair<int, DreeNode*>> search(DreeNode* root, string& query, DreeHelpersI* dreeHelpers) = 0;
 };
 
 #endif

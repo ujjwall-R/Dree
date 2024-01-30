@@ -17,7 +17,7 @@ class SearchController : public SearchControllerI {
     DreeHelpersI* dreeHelpers;
 
    public:
-    void search(string& query) override;
+    void search(string& query, Args* args) override;
 
     SearchController(DreeHelpersI* dreeHelpers, SearchResultsI* searchResulPrinter, SearchDirectoryI* searchModel,
                      Args* args);

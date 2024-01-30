@@ -20,23 +20,23 @@
 
 using namespace std;
 
-// #ifdef __linux__
-// size_t getMemoryUsageKB() {
-//     size_t memoryUsage = 0;
-//     ifstream statusFile("/proc/self/status");
-//     string line;
+#ifdef __linux__
+size_t getMemoryUsageKB() {
+    size_t memoryUsage = 0;
+    ifstream statusFile("/proc/self/status");
+    string line;
 
-//     while (getline(statusFile, line)) {
-//         if (line.compare(0, 6, "VmRSS:") == 0) {
-//             istringstream iss(line.substr(7));
-//             iss >> memoryUsage;
-//             break;
-//         }
-//     }
+    while (getline(statusFile, line)) {
+        if (line.compare(0, 6, "VmRSS:") == 0) {
+            istringstream iss(line.substr(7));
+            iss >> memoryUsage;
+            break;
+        }
+    }
 
-//     return memoryUsage;
-// }
-// #endif
+    return memoryUsage;
+}
+#endif
 
 int main(int argc, char *argv[]) {
 
@@ -65,12 +65,13 @@ int main(int argc, char *argv[]) {
     } else if (argc == 5) {
         DreeHelpers dreeHelpers;
         SearchResults searchResulPrinter;
-        SearchDirectory searchModel;
-        Args *args;
+        Args *args = new Args(stoll(argv[2]), argv[1]);
+        SearchDirectory searchModel(args);
+
         SearchControllerI *searchController =
             new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
-        string query = "a";
-        searchController->search(query);
+        string query = argv[4];
+        searchController->search(query, args);
     }
     // #ifdef __linux__
     //     size_t finalMemory = getMemoryUsageKB();
