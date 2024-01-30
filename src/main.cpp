@@ -72,7 +72,10 @@ int main(int argc, char *argv[]) {
         SearchResults searchResulPrinter;
         SearchDirectory searchModel;
         Args *args;
-        SearchController searchController();
+        SearchControllerI *searchController =
+            new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
+        string query = "a";
+        searchController->search(query);
     }
 #ifdef __linux__
     size_t finalMemory = getMemoryUsageKB();

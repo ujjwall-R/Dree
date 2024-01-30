@@ -6,6 +6,7 @@ SearchController::SearchController(DreeHelpersI* dreeHelpers, SearchResultsI* se
     this->searchModel = searchModel;
     this->args = args;
     this->searchResulPrinter = searchResulPrinter;
+    this->dreeHelpers = dreeHelpers;
 }
 
 void SearchController::search(string& query) { std::cout << "Searching...\n"; }
