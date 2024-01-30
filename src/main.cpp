@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
         PrintDree dreePrinter;
         DreeIgnore dreeIgnore;
         DreeLoader dreeLoader(&dreeIgnore);
-
+        //////////
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
