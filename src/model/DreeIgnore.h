@@ -6,11 +6,11 @@ using namespace std;
 
 class DreeIgnore : public DreeIgnoreI {
    private:
-    // set<string> excludedDirectories;
-    // bool active;
+    set<string> excludedDirectories;
+    bool active;
 
    public:
     bool file_is_in_dree_ignore(string directoryString) override;
 
-    // DreeIgnore(bool active);
+    DreeIgnore(bool active);
 };

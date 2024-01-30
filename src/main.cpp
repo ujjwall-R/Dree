@@ -53,13 +53,16 @@ int main(int argc, char *argv[]) {
         delete controller;
     } else if (argc < 5) {
         PrintDree dreePrinter;
-        DreeIgnore dreeIgnore;
-        DreeLoader dreeLoader(&dreeIgnore);
-        //////////
+
+        bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
+        DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+        DreeLoader dreeLoader(dreeIgnore);
+        //
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
 
+        delete dreeIgnore;
         delete arg;
         delete controller;
     } else if (argc == 5) {
