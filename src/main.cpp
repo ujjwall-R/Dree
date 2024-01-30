@@ -51,14 +51,18 @@ int main(int argc, char *argv[]) {
         HelpControllerI *controller = new HelpController(&aboutView);
         controller->help();
         delete controller;
-    } else if (argc < 5) {
-        PrintDree dreePrinter;
+    } else if (argc == 3 || argc == 4) {
+        Args *arg = new Args(stoll(argv[2]), argv[1]);
+        if (arg->MaxDepth > 60) {
+            cout << "Depth overflow!!\nAre you serious?" << endl;
+            return 0;
+        }
 
+        PrintDree dreePrinter;
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
-        //
-        Args *arg = new Args(stoll(argv[2]), argv[1]);
+
         DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
 
@@ -75,6 +79,8 @@ int main(int argc, char *argv[]) {
             new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
         string query = argv[4];
         searchController->search(query, args);
+    } else {
+        cout << "Command Not Found!\n Run: Dree --help to learn more\n";
     }
     // #ifdef __linux__
     //     size_t finalMemory = getMemoryUsageKB();
