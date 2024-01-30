@@ -1,14 +1,14 @@
-#include "DirectorySearch.h"
+#include "DreeHelpers.h"
 #include <algorithm>
-#include <iostream>
-#include <string>
 #include <vector>
-
 using namespace std;
 
-DirectorySearch::DirectorySearch(int searchDepth) { this->searchDepth = searchDepth; }
+bool DreeHelpers::string_is_a_directory(const string &pathString) {
+    filesystem::path path(pathString);
+    return filesystem::is_directory(path);
+}
 
-int DirectorySearch::LevenshteinDistance(const string &s1, const string &s2) {
+int DreeHelpers::levenshtein_distance_between_strings(const string &s1, const string &s2) {
     const int m = s1.length();
     const int n = s2.length();
     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
