@@ -14,7 +14,6 @@ DreeIgnore::DreeIgnore(bool active) {
     string line;
 
     while (getline(file, line)) {
-        cout << line << " ";
         this->excludedDirectories.insert(line);
     }
 }
