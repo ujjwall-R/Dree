@@ -5,15 +5,15 @@
 
 using namespace std;
 
-class DreeNavigate : public IDreeavigate {
+class DreeNavigate : public IDreeNavigate {
    private:
     DreeLoaderI* DreeLoaderInterface;
-    PrintDreeI* DreePrinterInterface;
+    IDreeNavigateView* DreePrinterInterface;
 
    public:
     void print_dree(Args* args) override;
 
-    DreeNavigate(DreeLoaderI* DreeLoader, PrintDreeI* DreePrinter);
+    DreeNavigate(DreeLoaderI* DreeLoader, IDreeNavigateView* DreePrinter);
 };
 
 #endif

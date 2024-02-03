@@ -4,11 +4,11 @@
 #include <filesystem>
 #include "../../data_structures/DreeNode.h"
 #include "../../model/DreeLoaderI.h"
-#include "../../view/PrintDreeI.h"
+#include "../../view/navigate/IDreeNavigateView.h"
 
 using namespace std;
 
-class IDreeavigate {
+class IDreeNavigate {
    public:
     virtual void print_dree(Args* args) = 0;
 };

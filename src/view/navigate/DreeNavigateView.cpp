@@ -1,6 +1,6 @@
-#include "DreeNavigate.h"
+#include "DreeNavigateView.h"
 
-void DreeNavigate::dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask) {
+void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask) {
     for (long long i = 0; i < currentDepth; i++) {
         if (((mask >> i) & 1ll) == 0ll)
             cout << "│    ";
@@ -21,9 +21,9 @@ void DreeNavigate::dfs(DreeNode* node, long long depth, long long currentDepth, 
     delete node;
 }
 
-void DreeNavigate::depth_first_search(DreeNode* node, long long maxDepth) {
+void DreeNavigateView::depth_first_search(DreeNode* node, long long maxDepth) {
     dfs(node, maxDepth, 0ll, true, 1ll);
     //
 };
 
-void DreeNavigate::breadth_first_search(DreeNode* node, long long maxDepth){};
+void DreeNavigateView::breadth_first_search(DreeNode* node, long long maxDepth){};

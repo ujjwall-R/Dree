@@ -5,7 +5,7 @@ void DreeNavigate::print_dree(Args* args) {
     DreePrinterInterface->depth_first_search(rootNode, args->MaxDepth);
 }
 
-DreeNavigate::DreeNavigate(DreeLoaderI* DreeLoader, PrintDreeI* DreePrinter) {
+DreeNavigate::DreeNavigate(DreeLoaderI* DreeLoader, IDreeNavigateView* DreePrinter) {
     DreeLoaderInterface = DreeLoader;
     DreePrinterInterface = DreePrinter;
 }

@@ -1,12 +1,12 @@
-#ifndef DREENAVIGATE_H
-#define DREENAVIGATE_H
+#ifndef DREENAVIGATEVIEW_H
+#define DREENAVIGATEVIEW_H
 
 #include <iostream>
-#include "IDreeNavigate.h"
+#include "IDreeNavigateView.h"
 
 using namespace std;
 
-class DreeNavigate : public IDreeNavigate {
+class DreeNavigateView : public IDreeNavigateView {
 
    private:
     void dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask);

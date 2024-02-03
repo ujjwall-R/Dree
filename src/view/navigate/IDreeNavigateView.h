@@ -1,9 +1,9 @@
-#ifndef IDREENAVIGATE_H
-#define IDREENAVIGATE_H
+#ifndef IDREENAVIGATEVIEW_H
+#define IDREENAVIGATEVIEW_H
 
 #include "../../data_structures/DreeNode.h"
 
-class IDreeNavigate {
+class IDreeNavigateView {
    public:
     virtual void depth_first_search(DreeNode* node, long long maxDepth) = 0;
 

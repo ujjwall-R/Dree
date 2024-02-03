@@ -14,6 +14,7 @@
 #include "view/AboutDree.h"
 #include "view/PrintDree.h"
 #include "view/SearchResults.h"
+#include "view/navigate/DreeNavigateView.h"
 
 #ifdef __linux__
 #include <unistd.h>
@@ -60,12 +61,12 @@ int main(int argc, char *argv[]) {
             return 0;
         }
 
-        PrintDree dreePrinter;
+        DreeNavigateView dreeNavigateView;
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
 
-        IDreeavigate *controller = new DreeNavigate(&dreeLoader, &dreePrinter);
+        IDreeNavigate *controller = new DreeNavigate(&dreeLoader, &dreeNavigateView);
         controller->print_dree(arg);
 
         delete dreeIgnore;
