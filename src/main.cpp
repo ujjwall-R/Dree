@@ -42,9 +42,9 @@ size_t getMemoryUsageKB() {
 
 int main(int argc, char *argv[]) {
 
-    initscr();
-    keypad(stdscr, TRUE);
-    raw();
+    // initscr();
+    // keypad(stdscr, TRUE);
+    // raw();
 
     // #ifdef __linux__
     //     size_t initialMemory = getMemoryUsageKB();

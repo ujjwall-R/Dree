@@ -1,23 +1,31 @@
 #include "DreeNavigateView.h"
 
 void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
+
+    initscr();
+    keypad(stdscr, TRUE);
+    raw();
+
     int ch;
     selectedDepth = 0;
     depth_first_search(root, maxDepth);
 
     while ((ch = getch()) != 10)  // 10 is the ASCII code for Enter key
     {
+        printw("yoooooooooo");
         switch (ch) {
             case KEY_UP:
-                selectedDepth = std::max(0ll, selectedDepth - 1);
+                selectedDepth = 1;
                 break;
             case KEY_DOWN:
-                selectedDepth = std::min(3ll, selectedDepth + 1);  // Assuming the maximum depth is 3
+                selectedDepth = 2;
                 break;
         }
         clear();
         depth_first_search(root, maxDepth);
     }
+
+    endwin();
 }
 
 void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask) {
