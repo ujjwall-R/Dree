@@ -10,7 +10,7 @@ using namespace std;
 
 class IDreeNavigate {
    public:
-    virtual void print_dree(Args* args) = 0;
+    virtual void display_dree(Args* args) = 0;
 };
 
 #endif

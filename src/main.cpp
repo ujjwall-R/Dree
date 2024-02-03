@@ -42,6 +42,10 @@ size_t getMemoryUsageKB() {
 
 int main(int argc, char *argv[]) {
 
+    initscr();
+    keypad(stdscr, TRUE);
+    raw();
+
     // #ifdef __linux__
     //     size_t initialMemory = getMemoryUsageKB();
     //     cout << "Initial memory usage: " << initialMemory << " KB" << endl;
@@ -54,7 +58,6 @@ int main(int argc, char *argv[]) {
         controller->help();
         delete controller;
     } else if (argc == 3 || argc == 4) {
-
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         if (arg->MaxDepth > 60) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
@@ -67,7 +70,7 @@ int main(int argc, char *argv[]) {
         DreeLoader dreeLoader(dreeIgnore);
 
         IDreeNavigate *controller = new DreeNavigate(&dreeLoader, &dreeNavigateView);
-        controller->print_dree(arg);
+        controller->display_dree(arg);
 
         delete dreeIgnore;
         delete arg;
@@ -108,5 +111,7 @@ int main(int argc, char *argv[]) {
     //     cout << "Final memory usage: " << finalMemory << " KB" << endl;
     //     cout << "Memory change: " << finalMemory - initialMemory << " KB" << endl;
     // #endif
+
+    // endwin();
     return 0;
 }

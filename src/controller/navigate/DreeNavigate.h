@@ -11,7 +11,7 @@ class DreeNavigate : public IDreeNavigate {
     IDreeNavigateView* DreePrinterInterface;
 
    public:
-    void print_dree(Args* args) override;
+    void display_dree(Args* args) override;
 
     DreeNavigate(DreeLoaderI* DreeLoader, IDreeNavigateView* DreePrinter);
 };

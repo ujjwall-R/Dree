@@ -1,8 +1,8 @@
 #include "DreeNavigate.h"
 
-void DreeNavigate::print_dree(Args* args) {
+void DreeNavigate::display_dree(Args* args) {
     DreeNode* rootNode = DreeLoaderInterface->load_dree(args);
-    DreePrinterInterface->depth_first_search(rootNode, args->MaxDepth);
+    DreePrinterInterface->navigate_dree(rootNode, args->MaxDepth);
 }
 
 DreeNavigate::DreeNavigate(DreeLoaderI* DreeLoader, IDreeNavigateView* DreePrinter) {
