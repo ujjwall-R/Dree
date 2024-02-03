@@ -6,6 +6,7 @@
 #include "controller/DreeController.h"
 #include "controller/HelpController.h"
 #include "controller/SearchController.h"
+#include "controller/navigate/DreeNavigate.h"
 #include "data_structures/Args.h"
 #include "model/DreeIgnore.h"
 #include "model/DreeLoader.h"
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
         controller->help();
         delete controller;
     } else if (argc == 3 || argc == 4) {
+
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         if (arg->MaxDepth > 60) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
@@ -63,12 +65,30 @@ int main(int argc, char *argv[]) {
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
 
-        DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
+        IDreeavigate *controller = new DreeNavigate(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
 
         delete dreeIgnore;
         delete arg;
         delete controller;
+
+        // Args *arg = new Args(stoll(argv[2]), argv[1]);
+        // if (arg->MaxDepth > 60) {
+        //     cout << "Depth overflow!!\nAre you serious?" << endl;
+        //     return 0;
+        // }
+
+        // PrintDree dreePrinter;
+        // bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
+        // DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+        // DreeLoader dreeLoader(dreeIgnore);
+
+        // DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
+        // controller->print_dree(arg);
+
+        // delete dreeIgnore;
+        // delete arg;
+        // delete controller;
     } else if (argc == 5) {
         DreeHelpers dreeHelpers;
         SearchResults searchResulPrinter;
