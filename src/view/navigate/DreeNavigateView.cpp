@@ -29,10 +29,11 @@ void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
 
 void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDepth, bool isLastChild, long long mask) {
     for (long long i = 0; i < currentDepth; i++) {
-        if (((mask >> i) & 1ll) == 0ll)
+        if (((mask >> i) & 1ll) == 0ll) {
             // cout << "│    ";
             addch(ACS_VLINE);  // '│'
-        else
+            printw("    ");
+        } else
             // cout << "     ";
             printw("     ");
     }
@@ -45,6 +46,7 @@ void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDep
 
     addch(ACS_HLINE);  // '─'
     addch(ACS_HLINE);  // '─'
+    printw(" ");
 
     if (currentDepth == selectedDepth) attron(A_STANDOUT);  // Highlight the selected depth
     addstr(node->name.c_str());
@@ -52,7 +54,7 @@ void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDep
 
     printw("\n");
 
-    cout << node->name << "\n";
+    // cout << node->name << "\n";
     for (size_t i = 0; i < node->children.size(); i++) {
         DreeNode* child = node->children[i];
         if (i == node->children.size() - 1) {
@@ -60,17 +62,11 @@ void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDep
         }
         dfs(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
-    // node->children.clear();
 }
 
 void DreeNavigateView::depth_first_search(DreeNode* node, long long maxDepth) {
-    // initscr();
-    // keypad(stdscr, TRUE);
-    // raw();
     dfs(node, maxDepth, 0ll, true, 1ll);
     refresh();
-    // endwin();
-    //
 };
 
 void DreeNavigateView::breadth_first_search(DreeNode* node, long long maxDepth){};
