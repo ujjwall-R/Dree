@@ -12,13 +12,12 @@ void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
 
     while ((ch = getch()) != 10)  // 10 is the ASCII code for Enter key
     {
-        printw("yoooooooooo");
         switch (ch) {
             case KEY_UP:
-                selectedDepth = 1;
+                selectedDepth = max(0ll, selectedDepth - 1);
                 break;
             case KEY_DOWN:
-                selectedDepth = 2;
+                selectedDepth = min(maxDepth, selectedDepth + 1);
                 break;
         }
         clear();
@@ -61,8 +60,7 @@ void DreeNavigateView::dfs(DreeNode* node, long long depth, long long currentDep
         }
         dfs(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
-    node->children.clear();
-    delete node;
+    // node->children.clear();
 }
 
 void DreeNavigateView::depth_first_search(DreeNode* node, long long maxDepth) {
