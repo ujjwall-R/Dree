@@ -64,12 +64,12 @@ int main(int argc, char *argv[]) {
             return 0;
         }
 
-        DreeNavigateView dreeNavigateView;
+        DreeNavigateView *dreeNavigateView = new DreeNavigateView();
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
 
-        IDreeNavigate *controller = new DreeNavigate(&dreeLoader, &dreeNavigateView);
+        IDreeNavigate *controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
         controller->display_dree(arg);
 
         delete dreeIgnore;
