@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+DreeNavigateView::DreeNavigateView(DreeHelpersI* dreehelper) { dreeHelpersInterface = dreehelper; }
+
 void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
     initscr();
     keypad(stdscr, TRUE);
@@ -30,6 +32,8 @@ void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
         clear();
         depth_first_search(root, maxDepth);
     }
+
+    if (!dreeHelpersInterface->string_is_a_directory(selectedNode->path)) selectedNode = selectedNode->parent;
 
     std::ofstream outFile(".navigate", std::ios::out);
     if (outFile.is_open()) {

@@ -2,6 +2,7 @@
 #define IDREENAVIGATEVIEW_H
 
 #include "../../data_structures/DreeNode.h"
+#include "../../model/DreeHelpersI.h"
 
 class IDreeNavigateView {
    public:

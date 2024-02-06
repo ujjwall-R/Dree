@@ -64,7 +64,8 @@ int main(int argc, char *argv[]) {
             return 0;
         }
 
-        DreeNavigateView *dreeNavigateView = new DreeNavigateView();
+        DreeHelpers dreeHelpers;
+        DreeNavigateView *dreeNavigateView = new DreeNavigateView(&dreeHelpers);
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
