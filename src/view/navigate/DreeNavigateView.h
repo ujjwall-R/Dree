@@ -2,6 +2,7 @@
 #define DREENAVIGATEVIEW_H
 
 #include <ncurses.h>
+#include <fstream>
 #include <iostream>
 #include <map>
 #include "IDreeNavigateView.h"

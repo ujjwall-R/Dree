@@ -1,5 +1,7 @@
 #include "DreeNavigateView.h"
 
+#include <fstream>
+
 void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
     initscr();
     keypad(stdscr, TRUE);
@@ -27,6 +29,21 @@ void DreeNavigateView::navigate_dree(DreeNode* root, long long maxDepth) {
         }
         clear();
         depth_first_search(root, maxDepth);
+    }
+
+    std::ofstream outFile(".navigate", std::ios::out);
+    if (outFile.is_open()) {
+        outFile << selectedNode->path;
+        outFile.close();
+    } else {
+        std::ofstream newFile(".navigate");
+        if (newFile.is_open()) {
+            newFile << selectedNode->path;
+            newFile.close();
+        } else {
+            // Handle error creating or opening the file
+            // You can print an error message or take appropriate action
+        }
     }
 
     endwin();
