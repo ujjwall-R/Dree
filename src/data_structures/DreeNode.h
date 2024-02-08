@@ -12,6 +12,9 @@ class DreeNode {
     std::string name;
     std::string path;
     std::vector<DreeNode *> children;
+    DreeNode *parent;
+    DreeNode *left;
+    DreeNode *right;
 
     DreeNode(std::string &str);
 };

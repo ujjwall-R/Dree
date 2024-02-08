@@ -16,10 +16,15 @@ void DreeLoader::traverse_dfs_and_build_tree(DreeNode *node, long long depth, lo
         // this->allFilesPermited = false;
     }
 
+    DreeNode *prev = nullptr;
     for (auto ch : node->children) {
         if (dreeHelpersInterface->string_is_a_directory(ch->path)) {
             traverse_dfs_and_build_tree(ch, depth, currentDepth + 1);
         }
+        ch->parent = node;
+        ch->left = prev;
+        if (prev != nullptr) prev->right = ch;
+        prev = ch;
     }
 }
 

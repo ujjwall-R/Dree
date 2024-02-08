@@ -6,6 +6,7 @@
 #include "controller/DreeController.h"
 #include "controller/HelpController.h"
 #include "controller/SearchController.h"
+#include "controller/navigate/DreeNavigate.h"
 #include "data_structures/Args.h"
 #include "model/DreeIgnore.h"
 #include "model/DreeLoader.h"
@@ -13,6 +14,7 @@
 #include "view/AboutDree.h"
 #include "view/PrintDree.h"
 #include "view/SearchResults.h"
+#include "view/navigate/DreeNavigateView.h"
 
 #ifdef __linux__
 #include <unistd.h>
@@ -40,6 +42,10 @@ size_t getMemoryUsageKB() {
 
 int main(int argc, char *argv[]) {
 
+    // initscr();
+    // keypad(stdscr, TRUE);
+    // raw();
+
     // #ifdef __linux__
     //     size_t initialMemory = getMemoryUsageKB();
     //     cout << "Initial memory usage: " << initialMemory << " KB" << endl;
@@ -51,7 +57,7 @@ int main(int argc, char *argv[]) {
         HelpControllerI *controller = new HelpController(&aboutView);
         controller->help();
         delete controller;
-    } else if (argc == 3 || argc == 4) {
+    } else if (argc == 3 || (argc == 4 && strcmp(argv[3], "-n") != 0)) {
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         if (arg->MaxDepth > 60) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
@@ -69,7 +75,30 @@ int main(int argc, char *argv[]) {
         delete dreeIgnore;
         delete arg;
         delete controller;
-    } else if (argc == 5) {
+        return 0;
+    } else if (argc >= 3 && argc <= 5 && strcmp(argv[3], "-f") != 0) {
+        if ((argc >= 4) && strcmp(argv[3], "-n") == 0) {
+            Args *arg = new Args(stoll(argv[2]), argv[1]);
+            if (arg->MaxDepth > 60) {
+                cout << "Depth overflow!!\nAre you serious?" << endl;
+                return 0;
+            }
+
+            DreeHelpers dreeHelpers;
+            DreeNavigateView *dreeNavigateView = new DreeNavigateView(&dreeHelpers);
+            bool dreeIgnoreIsActive = !((argc == 5) && (strcmp(argv[4], "-a") == 0));
+            DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+            DreeLoader dreeLoader(dreeIgnore);
+
+            IDreeNavigate *controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
+            controller->display_dree(arg);
+
+            delete dreeIgnore;
+            delete arg;
+            delete controller;
+            return 0;
+        }
+    } else if (argc == 5 && strcmp(argv[3], "-f") == 0) {
         DreeHelpers dreeHelpers;
         SearchResults searchResulPrinter;
         Args *args = new Args(stoll(argv[2]), argv[1]);
@@ -79,6 +108,9 @@ int main(int argc, char *argv[]) {
             new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
         string query = argv[4];
         searchController->search(query, args);
+
+        delete searchController;
+        delete args;
     } else {
         cout << "Command Not Found!\n Run: Dree --help to learn more\n";
     }
@@ -87,5 +119,7 @@ int main(int argc, char *argv[]) {
     //     cout << "Final memory usage: " << finalMemory << " KB" << endl;
     //     cout << "Memory change: " << finalMemory - initialMemory << " KB" << endl;
     // #endif
+
+    // endwin();
     return 0;
 }

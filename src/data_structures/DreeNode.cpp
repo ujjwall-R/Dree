@@ -11,4 +11,7 @@ std::string DreeNode::get_file_name_from_path(std::string &path) {
 DreeNode::DreeNode(std::string &str) {
     path = str;
     name = get_file_name_from_path(path);
+    parent = nullptr;
+    left = nullptr;
+    right = nullptr;
 }

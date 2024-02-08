@@ -62,6 +62,14 @@ Run `dree` followed by number of nested levels you want to visualise:
 dree 3
 ```
 
+### Run Dree TUI File Navigator
+
+Use the flag -n.
+
+```shell
+dree 3 -n
+```
+
 ### Search file or folder in a directory upto certain depth
 
 ```shell
