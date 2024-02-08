@@ -8,7 +8,7 @@ void SearchResults::print_search_results(vector<pair<int, DreeNode *>> &searchRe
         cout << "No results found\n";
     } else {
         if (searchResult[0].first == 0) {
-            cout << "Search Results:\n\t";
+            cout << "Search Results:\n";
             int cnt = 0;
             for (auto res : searchResult) {
                 if (res.first > 0) break;
@@ -18,7 +18,7 @@ void SearchResults::print_search_results(vector<pair<int, DreeNode *>> &searchRe
                 cnt++;
             }
         } else {
-            cout << "Couldn't find results. Did you mean?:\n\t";
+            cout << "Couldn't find results. Did you mean?:\n";
             int cnt = 0;
             for (auto res : searchResult) {
                 cout << cnt + 1 << ".\t";

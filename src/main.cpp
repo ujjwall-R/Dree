@@ -57,44 +57,48 @@ int main(int argc, char *argv[]) {
         HelpControllerI *controller = new HelpController(&aboutView);
         controller->help();
         delete controller;
-    } else if (argc == 3 || argc == 4) {
+    } else if (argc == 3 || (argc == 4 && strcmp(argv[3], "-n") != 0)) {
         Args *arg = new Args(stoll(argv[2]), argv[1]);
         if (arg->MaxDepth > 60) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
             return 0;
         }
 
-        DreeHelpers dreeHelpers;
-        DreeNavigateView *dreeNavigateView = new DreeNavigateView(&dreeHelpers);
+        PrintDree dreePrinter;
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
         DreeLoader dreeLoader(dreeIgnore);
 
-        IDreeNavigate *controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
-        controller->display_dree(arg);
+        DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
+        controller->print_dree(arg);
 
         delete dreeIgnore;
         delete arg;
         delete controller;
+        return 0;
+    } else if (argc >= 3 && argc <= 5 && strcmp(argv[3], "-f") != 0) {
+        if ((argc >= 4) && strcmp(argv[3], "-n") == 0) {
+            Args *arg = new Args(stoll(argv[2]), argv[1]);
+            if (arg->MaxDepth > 60) {
+                cout << "Depth overflow!!\nAre you serious?" << endl;
+                return 0;
+            }
 
-        // Args *arg = new Args(stoll(argv[2]), argv[1]);
-        // if (arg->MaxDepth > 60) {
-        //     cout << "Depth overflow!!\nAre you serious?" << endl;
-        //     return 0;
-        // }
+            DreeHelpers dreeHelpers;
+            DreeNavigateView *dreeNavigateView = new DreeNavigateView(&dreeHelpers);
+            bool dreeIgnoreIsActive = !((argc == 5) && (strcmp(argv[4], "-a") == 0));
+            DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+            DreeLoader dreeLoader(dreeIgnore);
 
-        // PrintDree dreePrinter;
-        // bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
-        // DreeIgnore *dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
-        // DreeLoader dreeLoader(dreeIgnore);
+            IDreeNavigate *controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
+            controller->display_dree(arg);
 
-        // DreeControllerI *controller = new DreeController(&dreeLoader, &dreePrinter);
-        // controller->print_dree(arg);
-
-        // delete dreeIgnore;
-        // delete arg;
-        // delete controller;
-    } else if (argc == 5) {
+            delete dreeIgnore;
+            delete arg;
+            delete controller;
+            return 0;
+        }
+    } else if (argc == 5 && strcmp(argv[3], "-f") == 0) {
         DreeHelpers dreeHelpers;
         SearchResults searchResulPrinter;
         Args *args = new Args(stoll(argv[2]), argv[1]);
@@ -104,6 +108,9 @@ int main(int argc, char *argv[]) {
             new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
         string query = argv[4];
         searchController->search(query, args);
+
+        delete searchController;
+        delete args;
     } else {
         cout << "Command Not Found!\n Run: Dree --help to learn more\n";
     }
