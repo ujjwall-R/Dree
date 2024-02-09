@@ -43,7 +43,7 @@ Add path to `dree.sh` in `~/.bashrc`. If you use zsh add the path in `~/.zshrc`.
 
 ```
 # Add the following line at the end of the ~/.bashrc file
-alias dree='path/to/project/dree.sh'
+alias dree='. path/to/project/dree.sh'
 ```
 
 Restart terminal or run:
