@@ -18,7 +18,6 @@ void PrintDree::dfs(DreeNode* node, long long depth, long long currentDepth, boo
         dfs(child, depth, currentDepth + 1, i == node->children.size() - 1, mask);
     }
     node->children.clear();
-    delete node;
 }
 
 void PrintDree::depth_first_search(DreeNode* node, long long maxDepth) {
@@ -26,4 +25,4 @@ void PrintDree::depth_first_search(DreeNode* node, long long maxDepth) {
     //
 };
 
-void PrintDree::breadth_first_search(DreeNode* node, long long maxDepth){};
+void PrintDree::breadth_first_search(DreeNode* node, long long maxDepth) {};
