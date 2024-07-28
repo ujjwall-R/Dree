@@ -8,15 +8,15 @@
 #include "DreeLoaderI.h"
 
 class DreeLoader : public DreeLoaderI {
-   private:
+private:
     DreeIgnoreI* dreeIgnoreInterface;
     DreeHelpersI* dreeHelpersInterface;
 
     void traverse_dfs_and_build_tree(DreeNode* node, long long depth, long long currentDepth);
 
-   public:
+public:
     DreeNode* load_dree(Args* args) override;
-    DreeLoader(DreeIgnoreI* dreeIgnoreInterface);
+    DreeLoader(DreeIgnoreI* dreeIgnoreInterface, DreeHelpersI* dreeHelperInterface);
 };
 
 #endif

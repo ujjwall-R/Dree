@@ -63,11 +63,12 @@ int main(int argc, char* argv[]) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
             return 0;
         }
+        DreeHelpers dreeHelpers;
 
         PrintDree dreePrinter;
         bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
         DreeIgnore* dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
-        DreeLoader dreeLoader(dreeIgnore);
+        DreeLoader dreeLoader(dreeIgnore, &dreeHelpers);
 
         DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
@@ -86,7 +87,7 @@ int main(int argc, char* argv[]) {
             DreeNavigateView* dreeNavigateView = new DreeNavigateView(&dreeHelpers);
             bool dreeIgnoreIsActive = !((argc == 5) && (strcmp(argv[4], "-a") == 0));
             DreeIgnore* dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
-            DreeLoader dreeLoader(dreeIgnore);
+            DreeLoader dreeLoader(dreeIgnore, &dreeHelpers);
 
             IDreeNavigate* controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
             controller->display_dree(arg);
