@@ -70,6 +70,11 @@ Use the flag -n.
 dree 3 -n
 ```
 
+<video width="320" height="240" controls muted>
+  <source src="https://drive.google.com/file/d/17VR3ENMh3-vdXDtfCsNSh6gsIAfpoyvl/view?usp=drivesdk" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ### Search file or folder in a directory upto certain depth
 
 ```shell
