@@ -67,8 +67,10 @@ dree 3
 Use the flag -n.
 
 ```shell
-dree 3 -n
+dree 2 -n
 ```
+
+![Nav-Demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xzcmfhyivbgomwx6bm9n.gif)
 
 ### Search file or folder in a directory upto certain depth
 
