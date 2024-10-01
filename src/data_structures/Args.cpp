@@ -1,6 +1,6 @@
 #include "Args.h"
 
-Args::Args(long long dep, const string& path) {
+Args::Args(long long dep, string path) {
     MaxDepth = dep;
     currentPath = path;
 }
