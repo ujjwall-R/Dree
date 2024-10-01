@@ -9,7 +9,7 @@ class Args {
    public:
     long long MaxDepth;
     string currentPath;
-    Args(long long dep, const string& path);
+    Args(long long dep, string path);
 };
 
 #endif
