@@ -1,7 +1,7 @@
 # Compiler
 CC := g++
 # Compiler flags
-CFLAGS := -std=c++17
+CFLAGS := -std=c++17 -MMD -MP
 # Libraries
 LIBS := -lncurses
 
