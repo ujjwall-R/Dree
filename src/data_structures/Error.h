@@ -8,7 +8,7 @@ class Error {
     std::string message;
 
    public:
-    Error(std::string message);
+    Error(const std::string& message);
 };
 
 #endif
