@@ -7,7 +7,7 @@ class HelpController : public HelpControllerI {
     AboutDreeI* aboutInterface;
 
    public:
-    HelpController(AboutDreeI* aboutInterface);
+    explicit HelpController(AboutDreeI* aboutInterface);
 
     void help() override;
 };

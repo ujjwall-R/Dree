@@ -16,7 +16,7 @@ class DreeNode {
     DreeNode *left;
     DreeNode *right;
 
-    DreeNode(std::string &str);
+    explicit DreeNode(std::string &str);
 };
 
 #endif

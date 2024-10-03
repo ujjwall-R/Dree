@@ -21,7 +21,7 @@ class SearchDirectory : public SearchDirectoryI {
    public:
     vector<pair<int, DreeNode *>> search(DreeNode *root, string &query, DreeHelpersI *dreeHelpers) override;
 
-    SearchDirectory(Args *args);
+    explicit SearchDirectory(Args *args);
 };
 
 #endif
