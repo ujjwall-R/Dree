@@ -43,7 +43,7 @@ Add path to `dree.sh` in `~/.bashrc`. If you use zsh add the path in `~/.zshrc`.
 
 ```
 # Add the following line at the end of the ~/.bashrc file
-alias dree='path/to/project/dree.sh'
+alias dree='. path/to/project/dree.sh'
 ```
 
 Restart terminal or run:
@@ -61,6 +61,16 @@ Run `dree` followed by number of nested levels you want to visualise:
 ```shell
 dree 3
 ```
+
+### Run Dree TUI File Navigator
+
+Use the flag -n.
+
+```shell
+dree 2 -n
+```
+
+![Nav-Demo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/xzcmfhyivbgomwx6bm9n.gif)
 
 ### Search file or folder in a directory upto certain depth
 

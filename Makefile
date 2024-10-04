@@ -1,7 +1,9 @@
 # Compiler
 CC := g++
 # Compiler flags
-CFLAGS := -std=c++17
+CFLAGS := -std=c++17 -MMD -MP
+# Libraries
+LIBS := -lncurses
 
 # Source directory
 SRCDIR := src
@@ -22,7 +24,7 @@ all: $(EXECUTABLE)
 
 # Rule to build the executable
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@ $(LIBS)
 
 # Rule to build object files
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(DIRECTORIES)
@@ -42,4 +44,3 @@ run: $(EXECUTABLE)
 # Clean target
 clean:
 	rm -rf $(OBJDIR) $(EXECUTABLE)
-

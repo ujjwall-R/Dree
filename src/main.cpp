@@ -1,126 +1,121 @@
-#include <filesystem>
+#include <cstring>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
-#include "controller/DirectoryGraph.h"
-#include "model/DirectoryNode.h"
-#include "view/Dree.h"
+#include "controller/DreeController.h"
+#include "controller/HelpController.h"
+#include "controller/SearchController.h"
+#include "controller/navigate/DreeNavigate.h"
+#include "data_structures/Args.h"
+#include "model/DreeIgnore.h"
+#include "model/DreeLoader.h"
+#include "model/SearchDirectory.h"
+#include "view/AboutDree.h"
+#include "view/PrintDree.h"
+#include "view/SearchResults.h"
+#include "view/navigate/DreeNavigateView.h"
+
+#ifdef __linux__
+#include <unistd.h>
+#endif
 
 using namespace std;
-void help() {
-    cout << "\tdree: "
-         << "dree "
-         << "[dep] [-f [dir|file]][-a]"
-         << "\n";
-    cout << "\tVisualize directories until certain depth"
-         << "\n";
-    cout << "\n";
-    cout << "\trun dree followed by the number of levels you want to visualize"
-         << "\n";
-    cout << "\n";
-    cout << "\tOptions:"
-         << "\n";
-    cout << "\t   -f   \t"
-         << "search for a directory or file upto the specified depth"
-         << "\n";
-    cout << "\t   -a   \t"
-         << "Show hidden files"
-         << "\n";
-}
-bool isNumber(string line) {
-    char *p;
-    strtol(line.c_str(), &p, 10);
-    return *p == 0;
-}
 
-void search(int argc, char *argv[]) {
-    if (argc != 5) {
+#ifdef __linux__
+size_t getMemoryUsageKB() {
+    size_t memoryUsage = 0;
+    ifstream statusFile("/proc/self/status");
+    string line;
 
-        cout << "Missing args"
-             << "\n";
-        return;
-    }
-    string flag = argv[3];
-    if (flag != "-f") {
-        cout << "Unknown args: " << argv[3] << "\n";
-        return;
-    }
-    string query = argv[4];
-    int depth = stoi(argv[2]);
-    if (depth >= 60) {
-        cout << "mask overflow!!";
-        return;
-    }
-    DirectoryGraph builder;
-    string currentPath = argv[1];
-    filesystem::path directoryPath(currentPath);
-    builder.SearchDirectory(currentPath, depth, query);
-}
-
-void dree(int argc, char *argv[]) {
-    if (!(argc == 3 || argc == 4)) {
-        cout << "Missing args" << std::endl;
-        return;
-    }
-    string currentPath = argv[1];
-    filesystem::path directoryPath(currentPath);
-    bool showHidden = false;
-    int depth = -1;
-    if (argc == 4 || (argc == 3 && isNumber(argv[2]))) {
-        depth = stoi(argv[2]);
-        // TODO:add check to prevent overflow
-        if (depth >= 60) {
-            cout << "mask overflow!!";
-            return;
+    while (getline(statusFile, line)) {
+        if (line.compare(0, 6, "VmRSS:") == 0) {
+            istringstream iss(line.substr(7));
+            iss >> memoryUsage;
+            break;
         }
-        showHidden = false;
-        if (argc == 4) {
-            string flag = argv[3];
-            if (flag == "-a") {
-                showHidden = true;
-            } else {
-                cout << "Unknown flags specified.";
-                return;
-            }
-        }
-    } else if (argc == 3) {
+    }
+
+    return memoryUsage;
+}
+#endif
+
+int main(int argc, char* argv[]) {
+
+    // initscr();
+    // keypad(stdscr, TRUE);
+    // raw();
+
+    // #ifdef __linux__
+    //     size_t initialMemory = getMemoryUsageKB();
+    //     cout << "Initial memory usage: " << initialMemory << " KB" << endl;
+    // #endif
+
+    if (argc == 3 && strcmp(argv[2], "--help") == 0) {
         string flag = argv[2];
-        if (flag == "--help") {
-            help();
-            return;
+        AboutDree aboutView;
+        HelpControllerI* controller = new HelpController(&aboutView);
+        controller->help();
+    }
+    else if (argc == 3 || (argc == 4 && strcmp(argv[3], "-n") != 0)) {
+        Args* arg = new Args(stoll(argv[2]), argv[1]);
+        if (arg->MaxDepth > 60) {
+            cout << "Depth overflow!!\nAre you serious?" << endl;
+            return 0;
+        }
+        DreeHelpers dreeHelpers;
+
+        PrintDree dreePrinter;
+        bool dreeIgnoreIsActive = !((argc == 4) && (strcmp(argv[3], "-a") == 0));
+        DreeIgnore* dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+        DreeLoader dreeLoader(dreeIgnore, &dreeHelpers);
+
+        DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);
+        controller->print_dree(arg);
+
+        return 0;
+    }
+    else if (argc >= 3 && argc <= 5 && strcmp(argv[3], "-f") != 0) {
+        if ((argc >= 4) && strcmp(argv[3], "-n") == 0) {
+            Args* arg = new Args(stoll(argv[2]), argv[1]);
+            if (arg->MaxDepth > 60) {
+                cout << "Depth overflow!!\nAre you serious?" << endl;
+                return 0;
+            }
+
+            DreeHelpers dreeHelpers;
+            DreeNavigateView* dreeNavigateView = new DreeNavigateView(&dreeHelpers);
+            bool dreeIgnoreIsActive = !((argc == 5) && (strcmp(argv[4], "-a") == 0));
+            DreeIgnore* dreeIgnore = new DreeIgnore(dreeIgnoreIsActive);
+            DreeLoader dreeLoader(dreeIgnore, &dreeHelpers);
+
+            IDreeNavigate* controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
+            controller->display_dree(arg);
+
+            return 0;
         }
     }
-    depth = stoi(argv[2]);
+    else if (argc == 5 && strcmp(argv[3], "-f") == 0) {
+        DreeHelpers dreeHelpers;
+        SearchResults searchResulPrinter;
+        Args* args = new Args(stoll(argv[2]), argv[1]);
+        SearchDirectory searchModel(args);
 
-    // TODO:add check to prevent overflow
-    if (depth >= 60) {
-        cout << "mask overflow!!" << endl;
-        return;
+        SearchControllerI* searchController =
+            new SearchController(&dreeHelpers, &searchResulPrinter, &searchModel, args);
+        string query = argv[4];
+        searchController->search(query, args);
+
     }
-
-    showHidden = false;
-    if (argc == 4) {
-        string flag = argv[3];
-        if (flag == "-a") {
-            showHidden = true;
-        } else {
-            cout << "Unknown flags specified" << endl;
-            return;
-        }
+    else {
+        cout << "Command Not Found!\n Run: Dree --help to learn more\n";
     }
-    DirectoryGraph builder(showHidden);
-    auto root = builder.BuildGraph(currentPath, depth);
-    builder.PrintGraphDFS(root, depth);
+    // #ifdef __linux__
+    //     size_t finalMemory = getMemoryUsageKB();
+    //     cout << "Final memory usage: " << finalMemory << " KB" << endl;
+    //     cout << "Memory change: " << finalMemory - initialMemory << " KB" << endl;
+    // #endif
 
-    if (!builder.allFilesPermited) cout << builder.permissionErrorString;
-}
-
-int main(int argc, char *argv[]) {
-    if (argc < 5)
-        dree(argc, argv);
-    else if (argc == 5)
-        search(argc, argv);
-    else
-        cout << "Dree cannot execute the given command\n";
+    // endwin();
     return 0;
 }
