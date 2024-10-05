@@ -52,7 +52,6 @@ int main(int argc, char* argv[]) {
     // #endif
 
     if (argc == 3 && strcmp(argv[2], "--help") == 0) {
-        cout<<"done 1";
         string flag = argv[2];
         AboutDree aboutView;
         HelpControllerI* controller = new HelpController(&aboutView);
@@ -62,7 +61,6 @@ int main(int argc, char* argv[]) {
         controller = nullptr; 
     }
     else if (argc == 3 || (argc == 4 && strcmp(argv[3], "-n") != 0)) {
-        cout<<"done 3";
         Args* arg = new Args(stoll(argv[2]), argv[1]);
         if (arg->MaxDepth > 60) {
             cout << "Depth overflow!!\nAre you serious?" << endl;
@@ -90,7 +88,6 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     else if (argc >= 3 && argc <= 5 && strcmp(argv[3], "-f") != 0) {
-        cout<<"done 3?\n";
         if ((argc >= 4) && strcmp(argv[3], "-n") == 0) {
             Args* arg = new Args(stoll(argv[2]), argv[1]);
             if (arg->MaxDepth > 60) {
@@ -120,7 +117,6 @@ int main(int argc, char* argv[]) {
         }
     }
     else if (argc == 5 && strcmp(argv[3], "-f") == 0) {
-        cout<<"done 2\n";
         DreeHelpers dreeHelpers;
         SearchResults searchResulPrinter;
         Args* args = new Args(stoll(argv[2]), argv[1]);
