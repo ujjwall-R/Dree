@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 
-void SearchResults::print_search_results(vector<pair<int, DreeNode *>> &searchResult) {
+void SearchResults::print_search_results(vector<pair<int, pair<string, string>>> &searchResult) {
     sort(searchResult.begin(), searchResult.end());
     if (searchResult.empty()) {
         cout << "No results found\n";
@@ -14,7 +14,7 @@ void SearchResults::print_search_results(vector<pair<int, DreeNode *>> &searchRe
                 if (res.first > 0) break;
 
                 cout << cnt + 1 << ".\t";
-                cout << res.second->name << "\t\t" << res.second->path << "\n";
+                cout << res.second.first << "\t\t" << res.second.second << "\n";
                 cnt++;
             }
         } else {
@@ -22,7 +22,7 @@ void SearchResults::print_search_results(vector<pair<int, DreeNode *>> &searchRe
             int cnt = 0;
             for (auto res : searchResult) {
                 cout << cnt + 1 << ".\t";
-                cout << res.second->name << "\t\t" << res.second->path << "\n";
+                cout << res.second.first << "\t\t" << res.second.second << "\n";
                 cnt++;
             }
         }

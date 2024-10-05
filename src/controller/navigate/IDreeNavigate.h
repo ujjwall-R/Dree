@@ -11,6 +11,7 @@ using namespace std;
 class IDreeNavigate {
    public:
     virtual void display_dree(Args* args) = 0;
+    virtual ~IDreeNavigate() = default;
 };
 
 #endif
