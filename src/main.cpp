@@ -56,6 +56,9 @@ int main(int argc, char* argv[]) {
         AboutDree aboutView;
         HelpControllerI* controller = new HelpController(&aboutView);
         controller->help();
+
+        delete controller;
+        controller = nullptr; 
     }
     else if (argc == 3 || (argc == 4 && strcmp(argv[3], "-n") != 0)) {
         Args* arg = new Args(stoll(argv[2]), argv[1]);
@@ -72,6 +75,15 @@ int main(int argc, char* argv[]) {
 
         DreeControllerI* controller = new DreeController(&dreeLoader, &dreePrinter);
         controller->print_dree(arg);
+
+        delete arg;
+        arg = nullptr;
+
+        delete dreeIgnore;
+        dreeIgnore = nullptr; 
+            
+        delete controller;
+        controller = nullptr; 
 
         return 0;
     }
@@ -92,6 +104,15 @@ int main(int argc, char* argv[]) {
             IDreeNavigate* controller = new DreeNavigate(&dreeLoader, dreeNavigateView);
             controller->display_dree(arg);
 
+            delete arg;
+            arg = nullptr;
+
+            delete dreeIgnore;
+            dreeIgnore = nullptr; 
+            
+            delete controller;
+            controller = nullptr; 
+
             return 0;
         }
     }
@@ -106,6 +127,11 @@ int main(int argc, char* argv[]) {
         string query = argv[4];
         searchController->search(query, args);
 
+        delete args;
+        args = nullptr;
+
+        delete searchController;
+        searchController = nullptr;
     }
     else {
         cout << "Command Not Found!\n Run: Dree --help to learn more\n";

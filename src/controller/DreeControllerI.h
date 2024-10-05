@@ -11,6 +11,7 @@ using namespace std;
 class DreeControllerI {
    public:
     virtual void print_dree(Args* args) = 0;
+    virtual ~DreeControllerI() = default;
 };
 
 #endif

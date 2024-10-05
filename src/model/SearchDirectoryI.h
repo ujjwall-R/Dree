@@ -10,7 +10,7 @@ using namespace std;
 
 class SearchDirectoryI {
    public:
-    virtual vector<pair<int, DreeNode*>> search(DreeNode* root, string& query, DreeHelpersI* dreeHelpers) = 0;
+    virtual vector<pair<int, pair<string, string>>> search(DreeNode* root, string& query, DreeHelpersI* dreeHelpers) = 0;
 };
 
 #endif

@@ -9,7 +9,7 @@ using namespace std;
 
 class SearchResults : public SearchResultsI {
    public:
-    void print_search_results(vector<pair<int, DreeNode *>> &searchResult) override;
+    void print_search_results(vector<pair<int, pair<string, string>>> &searchResult) override;
 };
 
 #endif

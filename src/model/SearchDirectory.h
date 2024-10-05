@@ -16,10 +16,10 @@ class SearchDirectory : public SearchDirectoryI {
     Args *args;
 
     void traverse_directories(DreeNode *node, long long depth, long long currentDepth, const string &query,
-                              vector<pair<int, DreeNode *>> &results, DreeHelpersI *dreehelpers);
+                              vector<pair<int, pair<string, string>>> &results, DreeHelpersI *dreehelpers);
 
    public:
-    vector<pair<int, DreeNode *>> search(DreeNode *root, string &query, DreeHelpersI *dreeHelpers) override;
+    vector<pair<int, pair<string, string>>> search(DreeNode *root, string &query, DreeHelpersI *dreeHelpers) override;
 
     SearchDirectory(Args *args);
 };

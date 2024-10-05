@@ -17,6 +17,12 @@ class DreeNode {
     DreeNode *right;
 
     DreeNode(std::string &str);
+
+    ~DreeNode() {
+        for (auto i : children) {
+            delete i;
+        }
+    }
 };
 
 #endif
