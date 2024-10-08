@@ -21,7 +21,7 @@ class DreeNavigateView : public IDreeNavigateView {
    public:
     void navigate_dree(DreeNode* node, long long maxDepth) override;
 
-    DreeNavigateView(DreeHelpersI* dreehelper);
+    explicit DreeNavigateView(DreeHelpersI* dreehelper);
 };
 
 #endif
